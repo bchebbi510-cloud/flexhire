@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlexHire - Connect Talent with Opportunity</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>FlexHire</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#" class="nav-link" data-page="home">Home</a>
+                <a href="#" class="nav-link" data-page="jobs">Browse Jobs</a>
+                <a href="#" class="nav-link auth-only hidden" data-page="dashboard">Dashboard</a>
+                <a href="#" class="nav-link guest-only" data-page="login">Login</a>
+                <a href="#" class="nav-link guest-only" data-page="signup">Sign Up</a>
+                <a href="#" class="nav-link auth-only hidden" id="logoutBtn">Logout</a>
+            </div>
+            <button class="mobile-toggle" id="mobileToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="app">
+        <!-- Home Page -->
+        <section id="homePage" class="page active">
+            <div class="hero">
+                <div class="container">
+                    <h1 class="hero-title">Find Your Perfect Match</h1>
+                    <p class="hero-subtitle">Connect talented professionals with amazing opportunities</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" data-page="jobs">Find Work</button>
+                        <button class="btn btn-secondary" data-page="signup">Post a Job</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features">
+                <div class="container">
+                    <h2 class="section-title">Why Choose FlexHire?</h2>
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Flexible Opportunities</h3>
+                            <p>Full-time, part-time, freelance, or gig work - find what fits your lifestyle</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>Quick & Easy</h3>
+                            <p>Post jobs or apply in minutes with our streamlined process</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🤝</div>
+                            <h3>Direct Connection</h3>
+                            <p>Connect directly with employers or candidates without intermediaries</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌍</div>
+                            <h3>Remote & Local</h3>
+                            <p>Find opportunities anywhere - work remotely or find local positions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="how-it-works">
+                <div class="container">
+                    <h2 class="section-title">How It Works</h2>
+                    <div class="steps-grid">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h3>Create Account</h3>
+                            <p>Sign up as a job seeker or employer</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h3>Post or Browse</h3>
+                            <p>Employers post jobs, seekers browse opportunities</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h3>Connect</h3>
+                            <p>Save jobs you like or manage your postings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Login Page -->
+        <section id="loginPage" class="page">
+            <div class="container">
+                <div class="auth-container">
+                    <h2>Welcome Back</h2>
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        <p class="auth-switch">Don't have an account? <a href="#" data-page="signup">Sign up</a></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Signup Page -->
+        <section id="signupPage" class="page">
+            <div class="container">
+                <div class="auth-container">
+                    <h2>Create Account</h2>
+                    <form id="signupForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="signupName">Full Name</label>
+                            <input type="text" id="signupName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email</label>
+                            <input type="email" id="signupEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password</label>
+                            <input type="password" id="signupPassword" required>
+                        </div>
+                        <div class="form-group">
+                            <label>I am a:</label>
+                            <div class="role-selector">
+                                <label class="role-option">
+                                    <input type="radio" name="role" value="seeker" required>
+                                    <span>Job Seeker</span>
+                                </label>
+                                <label class="role-option">
+                                    <input type="radio" name="role" value="employer" required>
+                                    <span>Employer</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+                        <p class="auth-switch">Already have an account? <a href="#" data-page="login">Login</a></p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Jobs Page -->
+        <section id="jobsPage" class="page">
+            <div class="container">
+                <h2 class="page-title">Browse Jobs</h2>
+                
+                <div class="jobs-filters">
+                    <input type="text" id="searchInput" placeholder="Search jobs..." class="search-input">
+                    <select id="typeFilter" class="filter-select">
+                        <option value="">All Types</option>
+                        <option value="full-time">Full-time</option>
+                        <option value="part-time">Part-time</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="gig">One-time Task</option>
+                    </select>
+                    <select id="locationFilter" class="filter-select">
+                        <option value="">All Locations</option>
+                        <option value="remote">Remote</option>
+                        <option value="local">Local</option>
+                    </select>
+                </div>
+
+                <div id="jobsList" class="jobs-grid"></div>
+            </div>
+        </section>
+
+        <!-- Dashboard Page -->
+        <section id="dashboardPage" class="page">
+            <div class="container">
+                <h2 class="page-title">Dashboard</h2>
+                
+                <!-- Employer Dashboard -->
+                <div id="employerDashboard" class="dashboard-section hidden">
+                    <div class="dashboard-header">
+                        <h3>My Posted Jobs</h3>
+                        <button class="btn btn-primary" id="showPostJobBtn">Post New Job</button>
+                    </div>
+                    
+                    <div id="postJobForm" class="post-job-form hidden">
+                        <h3>Post a Job</h3>
+                        <form id="jobForm">
+                            <div class="form-group">
+                                <label for="jobTitle">Job Title</label>
+                                <input type="text" id="jobTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="jobDescription">Description</label>
+                                <textarea id="jobDescription" rows="4" required></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="jobType">Job Type</label>
+                                    <select id="jobType" required>
+                                        <option value="full-time">Full-time</option>
+                                        <option value="part-time">Part-time</option>
+                                        <option value="freelance">Freelance</option>
+                                        <option value="gig">One-time Task</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="jobLocation">Location</label>
+                                    <select id="jobLocation" required>
+                                        <option value="remote">Remote</option>
+                                        <option value="local">Local</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Post Job</button>
+                                <button type="button" class="btn btn-secondary" id="cancelPostBtn">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div id="myJobsList" class="jobs-grid"></div>
+                </div>
+
+                <!-- Job Seeker Dashboard -->
+                <div id="seekerDashboard" class="dashboard-section hidden">
+                    <h3>Saved Jobs</h3>
+                    <div id="savedJobsList" class="jobs-grid"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Job Detail Modal -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div id="jobModalContent"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
