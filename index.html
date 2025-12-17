@@ -1997,7 +1997,14 @@
 <!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import { import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
@@ -2028,6 +2035,31 @@
     document.getElementById("user-info").innerText = "";
     alert("You have been signed out");
   };
+// Register with Email & Password
+window.register = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Account created successfully");
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+// Login with Email & Password
+window.login = async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("Logged in successfully");
+  } catch (error) {
+    alert(error.message);
+  }
+};
 </script>
 
 <!-- HTML buttons -->
