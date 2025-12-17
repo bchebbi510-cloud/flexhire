@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlexHire - Global Job Marketplace</title>
+    <title>FlixHire - Global Job Marketplace</title>
     <style>
         * {
             margin: 0;
@@ -12,120 +12,125 @@
         }
 
         :root {
-            --primary: #0A66C2;
-            --primary-dark: #004182;
-            --secondary: #057642;
-            --accent: #F5A623;
-            --text-dark: #000000;
-            --text-medium: #404040;
-            --text-light: #666666;
-            --bg-white: #FFFFFF;
-            --bg-light: #F3F2EF;
-            --bg-lighter: #FAFAFA;
-            --border: #D4D4D8;
-            --success: #057642;
-            --error: #CC1016;
+            --navy: #0F172A;
+            --navy-light: #1E293B;
+            --teal: #14B8A6;
+            --teal-dark: #0D9488;
+            --teal-light: #5EEAD4;
+            --white: #FFFFFF;
+            --gray-50: #F8FAFC;
+            --gray-100: #F1F5F9;
+            --gray-200: #E2E8F0;
+            --gray-300: #CBD5E1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-900: #0F172A;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-white);
-            line-height: 1.5;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--gray-900);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
         .navbar {
-            background: var(--bg-white);
-            border-bottom: 1px solid var(--border);
+            background: var(--white);
+            border-bottom: 1px solid var(--gray-200);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
         }
 
         .nav-container {
             max-width: 1280px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 64px;
+            height: 80px;
         }
 
         .nav-brand {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: -0.5px;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: -1px;
+        }
+
+        .nav-brand span {
+            color: var(--teal);
         }
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 48px;
             align-items: center;
         }
 
         .nav-link {
-            color: var(--text-medium);
+            color: var(--gray-700);
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 15px;
             cursor: pointer;
             transition: color 0.2s;
         }
 
         .nav-link:hover {
-            color: var(--primary);
+            color: var(--teal);
         }
 
         .nav-actions {
             display: flex;
-            gap: 12px;
+            gap: 16px;
             align-items: center;
         }
 
         .btn {
-            padding: 10px 24px;
-            border-radius: 24px;
-            font-weight: 600;
+            padding: 12px 32px;
+            border-radius: 8px;
+            font-weight: 700;
             font-size: 15px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             border: none;
             text-decoration: none;
             display: inline-block;
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: white;
+            background: var(--teal);
+            color: var(--white);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(10,102,194,0.3);
+            background: var(--teal-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
         }
 
         .btn-outline {
             background: transparent;
-            color: var(--primary);
-            border: 1.5px solid var(--primary);
+            color: var(--navy);
+            border: 2px solid var(--navy);
         }
 
         .btn-outline:hover {
-            background: var(--primary);
-            color: white;
+            background: var(--navy);
+            color: var(--white);
         }
 
         .btn-secondary {
-            background: var(--bg-light);
-            color: var(--text-dark);
+            background: var(--gray-100);
+            color: var(--gray-900);
         }
 
         .btn-secondary:hover {
-            background: #E8E7E3;
+            background: var(--gray-200);
         }
 
         .btn-block {
@@ -133,9 +138,10 @@
         }
 
         .hero {
-            background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
-            color: white;
-            padding: 80px 24px;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.92) 0%, rgba(30, 41, 59, 0.88) 100%), 
+                        url('https://images.pexels.com/photos/5256691/pexels-photo-5256691.jpeg?auto=compress&cs=tinysrgb&w=1920&q=80') center/cover;
+            color: var(--white);
+            padding: 140px 32px 120px;
             position: relative;
             overflow: hidden;
         }
@@ -147,9 +153,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: 
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
+            background: 
+                radial-gradient(circle at 25% 50%, rgba(20, 184, 166, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 75% 30%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
             pointer-events: none;
         }
 
@@ -161,101 +167,77 @@
         }
 
         .hero-content {
-            max-width: 720px;
+            max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
 
         .hero-title {
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 28px;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
         }
 
         .hero-subtitle {
-            font-size: clamp(1.125rem, 2vw, 1.375rem);
-            margin-bottom: 40px;
+            font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+            margin-bottom: 56px;
             opacity: 0.95;
-            line-height: 1.6;
+            line-height: 1.5;
             font-weight: 400;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 16px;
+            gap: 20px;
             justify-content: center;
             flex-wrap: wrap;
-            margin-bottom: 60px;
         }
 
         .hero-btn {
-            padding: 16px 32px;
-            border-radius: 28px;
+            padding: 20px 48px;
+            border-radius: 8px;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
             transition: all 0.3s;
             border: none;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
         }
 
         .hero-btn-primary {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            background: var(--teal);
+            color: var(--white);
+            box-shadow: 0 12px 32px rgba(20, 184, 166, 0.3);
         }
 
         .hero-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(0,0,0,0.2);
+            background: var(--teal-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(20, 184, 166, 0.4);
         }
 
         .hero-btn-secondary {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.5);
-            backdrop-filter: blur(10px);
+            background: var(--white);
+            color: var(--navy);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
         }
 
         .hero-btn-secondary:hover {
-            background: rgba(255,255,255,0.25);
-            border-color: white;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 48px;
-            justify-content: center;
-            flex-wrap: wrap;
-            opacity: 0.9;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .hero-stat-label {
-            font-size: 0.9375rem;
-            opacity: 0.85;
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
         }
 
         .section {
-            padding: 80px 24px;
+            padding: 120px 32px;
         }
 
         .section-light {
-            background: var(--bg-lighter);
+            background: var(--gray-50);
         }
 
         .container {
@@ -265,323 +247,373 @@
 
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .section-title {
-            font-size: clamp(2rem, 4vw, 2.75rem);
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
+            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--navy);
+            letter-spacing: -0.03em;
         }
 
         .section-subtitle {
-            font-size: 1.125rem;
-            color: var(--text-light);
-            max-width: 600px;
+            font-size: 1.375rem;
+            color: var(--gray-600);
+            max-width: 700px;
             margin: 0 auto;
+            line-height: 1.7;
         }
 
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 32px;
+            gap: 40px;
         }
 
         .feature-card {
-            background: var(--bg-white);
-            padding: 40px 32px;
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            transition: all 0.3s;
-            border: 1px solid var(--border);
+            background: var(--white);
+            padding: 48px 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+            transition: all 0.4s;
+            border: 1px solid var(--gray-200);
+            text-align: center;
         }
 
         .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.12);
+            border-color: var(--teal);
         }
 
         .feature-icon {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--primary), #7C3AED);
-            border-radius: 12px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--teal), var(--teal-light));
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
+            font-size: 40px;
+            margin: 0 auto 28px;
+            box-shadow: 0 8px 24px rgba(20, 184, 166, 0.25);
         }
 
         .feature-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--navy);
         }
 
         .feature-text {
-            color: var(--text-light);
-            line-height: 1.6;
+            color: var(--gray-600);
+            line-height: 1.8;
+            font-size: 1.0625rem;
+        }
+
+        .steps-section {
+            margin-top: 80px;
+        }
+
+        .steps-header {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 56px;
+            color: var(--teal);
         }
 
         .steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 40px;
-            margin-top: 48px;
+            gap: 48px;
         }
 
         .step-card {
             text-align: center;
-            padding: 32px 24px;
+            padding: 40px 32px;
+            background: var(--white);
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-6px);
         }
 
         .step-number {
-            width: 64px;
-            height: 64px;
-            background: var(--primary);
-            color: white;
+            width: 80px;
+            height: 80px;
+            background: var(--navy);
+            color: var(--white);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin: 0 auto 20px;
-            box-shadow: 0 4px 12px rgba(10,102,194,0.25);
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin: 0 auto 28px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.2);
         }
 
         .step-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: var(--text-dark);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--navy);
         }
 
         .step-text {
-            color: var(--text-light);
-            line-height: 1.6;
+            color: var(--gray-600);
+            line-height: 1.8;
+            font-size: 1.0625rem;
         }
 
         .jobs-showcase {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 32px;
         }
 
         .job-card {
-            background: var(--bg-white);
-            padding: 28px;
+            background: var(--white);
+            padding: 36px;
             border-radius: 12px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--gray-200);
             transition: all 0.3s;
             cursor: pointer;
         }
 
         .job-card:hover {
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-            border-color: var(--primary);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+            border-color: var(--teal);
         }
 
         .job-header {
             display: flex;
             justify-content: space-between;
             align-items: start;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .job-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 6px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 10px;
         }
 
         .job-company {
-            color: var(--text-light);
-            font-size: 0.9375rem;
+            color: var(--gray-600);
+            font-size: 1.0625rem;
+            font-weight: 600;
         }
 
         .job-save {
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: var(--bg-light);
+            background: var(--gray-100);
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            font-size: 20px;
         }
 
         .job-save:hover {
-            background: var(--primary);
-            color: white;
+            background: var(--teal);
+            color: var(--white);
+            transform: scale(1.1);
         }
 
         .job-save.saved {
-            background: var(--primary);
-            color: white;
+            background: var(--teal);
+            color: var(--white);
         }
 
         .job-meta {
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
 
         .job-badge {
-            padding: 6px 12px;
+            padding: 8px 16px;
             border-radius: 6px;
-            font-size: 0.8125rem;
-            font-weight: 600;
+            font-size: 0.875rem;
+            font-weight: 700;
         }
 
         .badge-type {
-            background: #E7F3FF;
-            color: #0A66C2;
+            background: #DBEAFE;
+            color: #1E40AF;
         }
 
         .badge-location {
-            background: #E6F4EA;
-            color: #057642;
+            background: #D1FAE5;
+            color: #065F46;
         }
 
         .job-description {
-            color: var(--text-light);
-            line-height: 1.6;
+            color: var(--gray-600);
+            line-height: 1.8;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
 
         .job-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 16px;
-            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            border-top: 1px solid var(--gray-200);
         }
 
         .job-posted {
-            font-size: 0.875rem;
-            color: var(--text-light);
+            font-size: 0.9375rem;
+            color: var(--gray-600);
+            font-weight: 500;
         }
 
         .cta-section {
-            background: linear-gradient(135deg, #0A66C2 0%, #7C3AED 100%);
-            color: white;
-            padding: 80px 24px;
+            background: var(--navy);
+            color: var(--white);
+            padding: 120px 32px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(20, 184, 166, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .cta-title {
-            font-size: clamp(2rem, 4vw, 2.75rem);
-            font-weight: 700;
-            margin-bottom: 20px;
-            letter-spacing: -0.02em;
+            font-size: clamp(2.5rem, 4vw, 3.75rem);
+            font-weight: 800;
+            margin-bottom: 28px;
+            letter-spacing: -0.03em;
+            position: relative;
+            z-index: 1;
         }
 
         .cta-text {
-            font-size: 1.125rem;
-            margin-bottom: 32px;
+            font-size: 1.375rem;
+            margin-bottom: 48px;
             opacity: 0.95;
-            max-width: 600px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
         }
 
         .auth-page {
-            min-height: calc(100vh - 64px);
+            min-height: calc(100vh - 80px);
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 60px 24px;
-            background: var(--bg-lighter);
+            padding: 80px 32px;
+            background: var(--gray-50);
         }
 
         .auth-card {
-            background: var(--bg-white);
-            padding: 48px;
+            background: var(--white);
+            padding: 64px;
             border-radius: 16px;
-            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 48px rgba(0,0,0,0.08);
             width: 100%;
-            max-width: 480px;
-            border: 1px solid var(--border);
+            max-width: 560px;
+            border: 1px solid var(--gray-200);
         }
 
         .auth-header {
             text-align: center;
-            margin-bottom: 32px;
+            margin-bottom: 48px;
         }
 
         .auth-title {
-            font-size: 1.875rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--navy);
         }
 
         .auth-subtitle {
-            color: var(--text-light);
-            font-size: 0.9375rem;
+            color: var(--gray-600);
+            font-size: 1.0625rem;
         }
 
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .form-label {
             display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text-dark);
-            font-size: 0.9375rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--navy);
+            font-size: 1rem;
         }
 
         .form-input {
             width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid var(--border);
+            padding: 16px 20px;
+            border: 2px solid var(--gray-300);
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 16px;
             transition: all 0.2s;
             font-family: inherit;
+            background: var(--white);
         }
 
         .form-input:focus {
             outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(10,102,194,0.1);
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
         }
 
         .role-selector {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 12px;
+            gap: 16px;
         }
 
         .role-option {
-            padding: 20px;
-            border: 2px solid var(--border);
+            padding: 28px;
+            border: 2px solid var(--gray-300);
             border-radius: 12px;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             text-align: center;
-            background: var(--bg-white);
+            background: var(--white);
         }
 
         .role-option:hover {
-            border-color: var(--primary);
-            background: #F0F7FF;
+            border-color: var(--teal);
+            background: #F0FDFA;
+            transform: translateY(-2px);
         }
 
         .role-option input {
@@ -589,32 +621,34 @@
         }
 
         .role-option input:checked + .role-label {
-            color: var(--primary);
-            font-weight: 700;
+            color: var(--teal);
+            font-weight: 800;
         }
 
-        .role-option input:checked ~ .role-option {
-            border-color: var(--primary);
-            background: #F0F7FF;
+        .role-option:has(input:checked) {
+            border-color: var(--teal);
+            background: #F0FDFA;
+            box-shadow: 0 4px 16px rgba(20, 184, 166, 0.2);
         }
 
         .role-label {
-            font-weight: 600;
-            font-size: 0.9375rem;
+            font-weight: 700;
+            font-size: 1.0625rem;
             transition: all 0.2s;
+            color: var(--navy);
         }
 
         .auth-switch {
             text-align: center;
-            margin-top: 24px;
-            color: var(--text-light);
-            font-size: 0.9375rem;
+            margin-top: 32px;
+            color: var(--gray-600);
+            font-size: 1rem;
         }
 
         .auth-switch a {
-            color: var(--primary);
+            color: var(--teal);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
         }
 
         .auth-switch a:hover {
@@ -634,80 +668,87 @@
         }
 
         .jobs-page {
-            padding: 40px 24px 80px;
-            background: var(--bg-lighter);
-            min-height: calc(100vh - 64px);
+            padding: 56px 32px 120px;
+            background: var(--gray-50);
+            min-height: calc(100vh - 80px);
         }
 
         .jobs-header {
             max-width: 1280px;
-            margin: 0 auto 32px;
+            margin: 0 auto 48px;
         }
 
         .jobs-title {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            color: var(--text-dark);
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--navy);
         }
 
         .jobs-subtitle {
-            color: var(--text-light);
+            color: var(--gray-600);
+            font-size: 1.25rem;
         }
 
         .jobs-filters {
             max-width: 1280px;
-            margin: 0 auto 32px;
-            background: var(--bg-white);
-            padding: 24px;
+            margin: 0 auto 48px;
+            background: var(--white);
+            padding: 32px;
             border-radius: 12px;
-            border: 1px solid var(--border);
+            border: 1px solid var(--gray-200);
             display: flex;
-            gap: 12px;
+            gap: 16px;
             flex-wrap: wrap;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
         }
 
         .search-input {
             flex: 1;
-            min-width: 280px;
-            padding: 12px 16px;
-            border: 1.5px solid var(--border);
+            min-width: 320px;
+            padding: 16px 20px;
+            border: 2px solid var(--gray-300);
             border-radius: 8px;
-            font-size: 15px;
+            font-size: 16px;
+            transition: all 0.2s;
         }
 
         .search-input:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
         }
 
         .filter-select {
-            padding: 12px 16px;
-            border: 1.5px solid var(--border);
+            padding: 16px 20px;
+            border: 2px solid var(--gray-300);
             border-radius: 8px;
-            font-size: 15px;
-            background: var(--bg-white);
+            font-size: 16px;
+            background: var(--white);
             cursor: pointer;
-            min-width: 160px;
+            min-width: 200px;
+            font-weight: 600;
+            transition: all 0.2s;
         }
 
         .filter-select:focus {
             outline: none;
-            border-color: var(--primary);
+            border-color: var(--teal);
+            box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1);
         }
 
         .jobs-grid {
             max-width: 1280px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 32px;
         }
 
         .dashboard {
-            padding: 40px 24px 80px;
-            background: var(--bg-lighter);
-            min-height: calc(100vh - 64px);
+            padding: 56px 32px 120px;
+            background: var(--gray-50);
+            min-height: calc(100vh - 80px);
         }
 
         .dashboard-container {
@@ -719,48 +760,50 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 32px;
+            margin-bottom: 48px;
         }
 
         .dashboard-title {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-dark);
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--navy);
         }
 
         .dashboard-section {
-            background: var(--bg-white);
-            padding: 32px;
+            background: var(--white);
+            padding: 48px;
             border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
+            border: 1px solid var(--gray-200);
+            margin-bottom: 32px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
         }
 
         .section-heading {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-            color: var(--text-dark);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--navy);
         }
 
         .post-job-form {
-            background: var(--bg-white);
-            padding: 32px;
+            background: var(--white);
+            padding: 48px;
             border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 24px;
+            border: 1px solid var(--gray-200);
+            margin-bottom: 32px;
+            box-shadow: 0 2px 16px rgba(0,0,0,0.04);
         }
 
         .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
         }
 
         .form-actions {
             display: flex;
-            gap: 12px;
-            margin-top: 24px;
+            gap: 16px;
+            margin-top: 40px;
         }
 
         .modal {
@@ -770,11 +813,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(15, 23, 42, 0.7);
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 24px;
+            backdrop-filter: blur(4px);
         }
 
         .modal.active {
@@ -782,66 +826,68 @@
         }
 
         .modal-content {
-            background: var(--bg-white);
+            background: var(--white);
             border-radius: 16px;
-            max-width: 640px;
+            max-width: 720px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 24px 80px rgba(0,0,0,0.3);
         }
 
         .modal-header {
-            padding: 28px 32px;
-            border-bottom: 1px solid var(--border);
+            padding: 36px 48px;
+            border-bottom: 1px solid var(--gray-200);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .modal-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--navy);
         }
 
         .modal-close {
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: var(--bg-light);
+            background: var(--gray-100);
             border: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5rem;
-            color: var(--text-medium);
+            font-size: 1.75rem;
+            color: var(--gray-700);
             transition: all 0.2s;
         }
 
         .modal-close:hover {
-            background: var(--border);
+            background: var(--gray-200);
+            transform: rotate(90deg);
         }
 
         .modal-body {
-            padding: 32px;
+            padding: 48px;
         }
 
         .toast {
             position: fixed;
-            bottom: 32px;
-            right: 32px;
-            background: var(--text-dark);
-            color: white;
-            padding: 16px 24px;
+            bottom: 48px;
+            right: 48px;
+            background: var(--navy);
+            color: var(--white);
+            padding: 20px 32px;
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+            box-shadow: 0 16px 48px rgba(0,0,0,0.3);
             transform: translateY(200%);
-            transition: transform 0.3s;
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             z-index: 3000;
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 16px;
         }
 
         .toast.show {
@@ -849,11 +895,11 @@
         }
 
         .toast.success {
-            background: var(--success);
+            background: var(--teal);
         }
 
         .toast.error {
-            background: var(--error);
+            background: #EF4444;
         }
 
         .mobile-toggle {
@@ -864,14 +910,14 @@
             .nav-links {
                 display: none;
                 position: absolute;
-                top: 64px;
+                top: 80px;
                 left: 0;
                 right: 0;
-                background: var(--bg-white);
+                background: var(--white);
                 flex-direction: column;
-                padding: 20px;
-                border-bottom: 1px solid var(--border);
-                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                padding: 28px;
+                border-bottom: 1px solid var(--gray-200);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.1);
             }
 
             .nav-links.active {
@@ -881,7 +927,7 @@
             .mobile-toggle {
                 display: flex;
                 flex-direction: column;
-                gap: 4px;
+                gap: 6px;
                 background: none;
                 border: none;
                 cursor: pointer;
@@ -889,15 +935,14 @@
             }
 
             .mobile-toggle span {
-                width: 24px;
-                height: 2.5px;
-                background: var(--text-dark);
-                border-radius: 2px;
-                transition: all 0.3s;
+                width: 28px;
+                height: 3px;
+                background: var(--navy);
+                border-radius: 3px;
             }
 
             .hero {
-                padding: 60px 20px;
+                padding: 100px 24px 80px;
             }
 
             .hero-buttons {
@@ -909,6 +954,10 @@
                 justify-content: center;
             }
 
+            .section {
+                padding: 80px 24px;
+            }
+
             .jobs-grid,
             .jobs-showcase {
                 grid-template-columns: 1fr;
@@ -917,7 +966,7 @@
             .dashboard-header {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 16px;
+                gap: 24px;
             }
 
             .form-actions {
@@ -925,11 +974,19 @@
             }
 
             .auth-card {
-                padding: 32px 24px;
+                padding: 48px 32px;
             }
 
             .role-selector {
                 grid-template-columns: 1fr;
+            }
+
+            .jobs-filters {
+                flex-direction: column;
+            }
+
+            .search-input {
+                width: 100%;
             }
         }
     </style>
@@ -937,7 +994,7 @@
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">FlexHire</div>
+            <div class="nav-brand">Flix<span>Hire</span></div>
             <div class="nav-links" id="navMenu">
                 <a class="nav-link" data-page="home">Home</a>
                 <a class="nav-link" data-page="jobs">Browse Jobs</a>
@@ -963,34 +1020,20 @@
                 <div class="hero-container">
                     <div class="hero-content">
                         <h1 class="hero-title">Connect Talent with Opportunity Worldwide</h1>
-                        <p class="hero-subtitle">Join millions of professionals and companies shaping the future of work. Find your next role or discover exceptional talent across the globe.</p>
+                        <p class="hero-subtitle">Join millions of professionals shaping the future of work</p>
                         <div class="hero-buttons">
                             <button class="hero-btn hero-btn-primary" data-page="jobs">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                                 </svg>
                                 Find Work
                             </button>
                             <button class="hero-btn hero-btn-secondary" data-page="signup">
-                                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                                 </svg>
                                 Post a Job
                             </button>
-                        </div>
-                        <div class="hero-stats">
-                            <div class="hero-stat">
-                                <div class="hero-stat-number">12M+</div>
-                                <div class="hero-stat-label">Active Professionals</div>
-                            </div>
-                            <div class="hero-stat">
-                                <div class="hero-stat-number">500K+</div>
-                                <div class="hero-stat-label">Global Companies</div>
-                            </div>
-                            <div class="hero-stat">
-                                <div class="hero-stat-number">195+</div>
-                                <div class="hero-stat-label">Countries</div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -999,29 +1042,29 @@
             <section class="section">
                 <div class="container">
                     <div class="section-header">
-                        <h2 class="section-title">Why Choose FlexHire?</h2>
-                        <p class="section-subtitle">Everything you need to find work or hire talent, all in one platform</p>
+                        <h2 class="section-title">Why Choose Us</h2>
+                        <p class="section-subtitle">Everything you need to find work or hire talent, all in one powerful platform</p>
                     </div>
                     <div class="features-grid">
                         <div class="feature-card">
                             <div class="feature-icon">ðŸŽ¯</div>
-                            <h3 class="feature-title">Flexible Opportunities</h3>
-                            <p class="feature-text">Full-time, part-time, freelance, or project-based work. Find opportunities that match your lifestyle and career goals.</p>
+                            <h3 class="feature-title">Global Opportunities</h3>
+                            <p class="feature-text">Access thousands of jobs worldwide. Full-time, part-time, freelance, or project-based positions.</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-icon">âš¡</div>
-                            <h3 class="feature-title">Quick & Efficient</h3>
-                            <p class="feature-text">Post jobs or apply in minutes. Our streamlined process connects you faster than traditional platforms.</p>
+                            <h3 class="feature-title">Fast & Efficient</h3>
+                            <p class="feature-text">Post jobs or apply in minutes. Our streamlined process connects you faster than ever.</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-icon">ðŸŒ</div>
-                            <h3 class="feature-title">Global Reach</h3>
-                            <p class="feature-text">Access talent and opportunities from 195+ countries. Work remotely or find local positions worldwide.</p>
+                            <h3 class="feature-title">Worldwide Network</h3>
+                            <p class="feature-text">Connect with talent and opportunities across 195+ countries. Work from anywhere.</p>
                         </div>
                         <div class="feature-card">
                             <div class="feature-icon">ðŸ›¡ï¸</div>
-                            <h3 class="feature-title">Trusted Platform</h3>
-                            <p class="feature-text">Verified profiles, secure payments, and dedicated support. Your success and safety are our priorities.</p>
+                            <h3 class="feature-title">Trusted & Secure</h3>
+                            <p class="feature-text">Verified profiles, secure transactions, and dedicated support for your success.</p>
                         </div>
                     </div>
                 </div>
@@ -1033,51 +1076,55 @@
                         <h2 class="section-title">How It Works</h2>
                     </div>
                     
-                    <h3 style="text-align: center; font-size: 1.5rem; font-weight: 600; margin-bottom: 32px; color: var(--primary);">For Job Seekers</h3>
-                    <div class="steps-grid">
-                        <div class="step-card">
-                            <div class="step-number">1</div>
-                            <h4 class="step-title">Create Your Profile</h4>
-                            <p class="step-text">Sign up and showcase your skills, experience, and what you're looking for</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">2</div>
-                            <h4 class="step-title">Discover Opportunities</h4>
-                            <p class="step-text">Browse thousands of jobs tailored to your preferences and expertise</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">3</div>
-                            <h4 class="step-title">Apply & Connect</h4>
-                            <p class="step-text">Submit applications and connect directly with hiring managers</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">4</div>
-                            <h4 class="step-title">Start Working</h4>
-                            <p class="step-text">Get hired and begin your next career chapter</p>
+                    <div class="steps-section">
+                        <h3 class="steps-header">For Job Seekers</h3>
+                        <div class="steps-grid">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <h4 class="step-title">Create Profile</h4>
+                                <p class="step-text">Sign up and showcase your skills and experience</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <h4 class="step-title">Browse Jobs</h4>
+                                <p class="step-text">Explore opportunities tailored to your expertise</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <h4 class="step-title">Apply</h4>
+                                <p class="step-text">Submit applications and connect with employers</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">4</div>
+                                <h4 class="step-title">Get Hired</h4>
+                                <p class="step-text">Start your next career chapter</p>
+                            </div>
                         </div>
                     </div>
 
-                    <h3 style="text-align: center; font-size: 1.5rem; font-weight: 600; margin: 64px 0 32px; color: var(--primary);">For Employers</h3>
-                    <div class="steps-grid">
-                        <div class="step-card">
-                            <div class="step-number">1</div>
-                            <h4 class="step-title">Post Your Job</h4>
-                            <p class="step-text">Create detailed job listings in minutes with our intuitive interface</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">2</div>
-                            <h4 class="step-title">Review Candidates</h4>
-                            <p class="step-text">Access qualified professionals from our global talent pool</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">3</div>
-                            <h4 class="step-title">Interview & Select</h4>
-                            <p class="step-text">Connect with top candidates and make informed hiring decisions</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">4</div>
-                            <h4 class="step-title">Build Your Team</h4>
-                            <p class="step-text">Onboard talent and grow your business with confidence</p>
+                    <div class="steps-section">
+                        <h3 class="steps-header">For Employers</h3>
+                        <div class="steps-grid">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <h4 class="step-title">Post Job</h4>
+                                <p class="step-text">Create detailed listings in minutes</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <h4 class="step-title">Review</h4>
+                                <p class="step-text">Access qualified professionals globally</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <h4 class="step-title">Interview</h4>
+                                <p class="step-text">Connect with top candidates</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">4</div>
+                                <h4 class="step-title">Hire</h4>
+                                <p class="step-text">Build your dream team</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1086,8 +1133,8 @@
             <section class="section">
                 <div class="container">
                     <div class="section-header">
-                        <h2 class="section-title">Featured Opportunities</h2>
-                        <p class="section-subtitle">Explore trending jobs from top companies worldwide</p>
+                        <h2 class="section-title">Job Listings</h2>
+                        <p class="section-subtitle">Explore featured opportunities from top companies</p>
                     </div>
                     <div class="jobs-showcase" id="featuredJobs"></div>
                 </div>
@@ -1096,7 +1143,7 @@
             <section class="cta-section">
                 <div class="container">
                     <h2 class="cta-title">Ready to Get Started?</h2>
-                    <p class="cta-text">Join thousands of professionals and companies finding success on FlexHire every day</p>
+                    <p class="cta-text">Join thousands of professionals and companies finding success every day</p>
                     <button class="hero-btn hero-btn-primary" data-page="signup">Create Free Account</button>
                 </div>
             </section>
@@ -1107,7 +1154,7 @@
                 <div class="auth-card">
                     <div class="auth-header">
                         <h2 class="auth-title">Welcome Back</h2>
-                        <p class="auth-subtitle">Sign in to your FlexHire account</p>
+                        <p class="auth-subtitle">Sign in to your FlixHire account</p>
                     </div>
                     <form id="loginForm">
                         <div class="form-group">
@@ -1129,7 +1176,7 @@
             <div class="auth-page">
                 <div class="auth-card">
                     <div class="auth-header">
-                        <h2 class="auth-title">Join FlexHire</h2>
+                        <h2 class="auth-title">Join FlixHire</h2>
                         <p class="auth-subtitle">Create your account and start your journey</p>
                     </div>
                     <form id="signupForm">
@@ -1201,13 +1248,13 @@
                     
                     <div id="employerDashboard" class="hidden">
                         <div class="dashboard-section">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
                                 <h2 class="section-heading">My Posted Jobs</h2>
                                 <button class="btn btn-primary" id="showPostJobBtn">Post New Job</button>
                             </div>
                             
                             <div id="postJobForm" class="post-job-form hidden">
-                                <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 24px;">Post a New Job</h3>
+                                <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: 32px; color: var(--navy);">Post a New Job</h3>
                                 <form id="jobForm">
                                     <div class="form-group">
                                         <label class="form-label">Job Title</label>
@@ -1215,7 +1262,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Job Description</label>
-                                        <textarea class="form-input" id="jobDescription" rows="5" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
+                                        <textarea class="form-input" id="jobDescription" rows="6" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group">
@@ -1489,7 +1536,7 @@
             const container = document.getElementById(containerId);
             
             if (jobs.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 3rem; grid-column: 1/-1;">No jobs found. Try adjusting your filters.</p>';
+                container.innerHTML = '<p style="text-align: center; color: var(--gray-600); padding: 5rem; grid-column: 1/-1; font-size: 1.25rem;">No jobs found. Try adjusting your filters.</p>';
                 return;
             }
 
@@ -1514,9 +1561,9 @@
                     <div class="job-footer">
                         <span class="job-posted">${formatDate(job.createdAt)}</span>
                         ${showActions && state.currentUser && state.currentUser.role === 'employer' && job.postedBy === state.currentUser.email ? `
-                            <div style="display: flex; gap: 8px;">
-                                <button class="btn btn-secondary" style="padding: 6px 16px; font-size: 0.875rem;" onclick="event.stopPropagation(); editJob('${job.id}')">Edit</button>
-                                <button class="btn btn-outline" style="padding: 6px 16px; font-size: 0.875rem; color: var(--error); border-color: var(--error);" onclick="event.stopPropagation(); deleteJob('${job.id}')">Delete</button>
+                            <div style="display: flex; gap: 12px;">
+                                <button class="btn btn-secondary" style="padding: 10px 20px; font-size: 0.9375rem;" onclick="event.stopPropagation(); editJob('${job.id}')">Edit</button>
+                                <button class="btn btn-outline" style="padding: 10px 20px; font-size: 0.9375rem; color: #EF4444; border-color: #EF4444;" onclick="event.stopPropagation(); deleteJob('${job.id}')">Delete</button>
                             </div>
                         ` : ''}
                     </div>
@@ -1571,21 +1618,21 @@
             titleEl.textContent = job.title;
 
             content.innerHTML = `
-                <div style="margin-bottom: 24px;">
-                    <div style="font-size: 1.125rem; font-weight: 600; color: var(--text-dark); margin-bottom: 8px;">${job.company}</div>
+                <div style="margin-bottom: 32px;">
+                    <div style="font-size: 1.375rem; font-weight: 700; color: var(--navy); margin-bottom: 12px;">${job.company}</div>
                     <div class="job-meta">
                         <span class="job-badge badge-type">${formatJobType(job.type)}</span>
                         <span class="job-badge badge-location">${formatLocation(job.location)}</span>
                     </div>
                 </div>
                 
-                <div style="margin-bottom: 24px;">
-                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 12px; color: var(--text-dark);">About the Role</h3>
-                    <p style="color: var(--text-light); line-height: 1.7;">${job.description}</p>
+                <div style="margin-bottom: 32px;">
+                    <h3 style="font-size: 1.375rem; font-weight: 700; margin-bottom: 16px; color: var(--navy);">About the Role</h3>
+                    <p style="color: var(--gray-600); line-height: 1.9; font-size: 1.0625rem;">${job.description}</p>
                 </div>
                 
-                <div style="padding: 16px; background: var(--bg-lighter); border-radius: 8px; margin-bottom: 24px;">
-                    <p style="font-size: 0.875rem; color: var(--text-light);">${formatDate(job.createdAt)}</p>
+                <div style="padding: 20px; background: var(--gray-50); border-radius: 12px; margin-bottom: 32px;">
+                    <p style="font-size: 1rem; color: var(--gray-600); font-weight: 600;">${formatDate(job.createdAt)}</p>
                 </div>
                 
                 ${state.currentUser && state.currentUser.role === 'seeker' ? `
@@ -1632,6 +1679,8 @@
                 loadDashboard();
             } else if (state.currentPage === 'jobs') {
                 loadJobs();
+            } else if (state.currentPage === 'home') {
+                loadFeaturedJobs();
             }
         }
 
@@ -1667,7 +1716,7 @@
             document.getElementById('jobLocation').value = job.location;
             
             document.getElementById('postJobForm').classList.remove('hidden');
-            document.getElementById('postJobForm').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('postJobForm').scroll IntoView({ behavior: 'smooth' });
         }
 
         function updateJob(jobId, jobData) {
@@ -1721,7 +1770,7 @@
                 const savedJobIds = getFromStorage(`saved_${state.currentUser.id}`) || [];
                 const savedJobs = jobs.filter(j => savedJobIds.includes(j.id));
                 state.jobs = jobs;
-                renderJobs(savedJobs, 'save dJobsList');
+                renderJobs(savedJobs, 'savedJobsList');
             }
         }
 
@@ -1732,7 +1781,7 @@
             
             setTimeout(() => {
                 toast.classList.remove('show');
-            }, 3000);
+            }, 3500);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
