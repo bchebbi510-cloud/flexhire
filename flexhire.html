@@ -1154,7 +1154,7 @@
                     </div>
                     <div class="features-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">🎯</div>
+                            <div class="feature-icon"> 🎯</div>
                             <h3 class="feature-title">Flexible Opportunities</h3>
                             <p class="feature-text">Full-time, part-time, freelance, or project-based work. Find opportunities that match your lifestyle and career goals.</p>
                         </div>
@@ -1654,7 +1654,7 @@
                         </div>
                         ${showActions && state.currentUser && state.currentUser.role === 'seeker' ? `
                             <button class="job-save ${isJobSaved(job.id) ? 'saved' : ''}" onclick="event.stopPropagation(); toggleSaveJob('${job.id}')">
-                                ${isJobSaved(job.id) ? '❤️ : '🤍}
+                                ${isJobSaved(job.id) ? ❤️ : 🤍}
                             </button>
                         ` : ''}
                     </div>
@@ -1743,7 +1743,7 @@
                 
                 ${state.currentUser && state.currentUser.role === 'seeker' ? `
                     <button class="btn btn-primary btn-block" onclick="toggleSaveJob('${job.id}'); closeModal();">
-                        ${isJobSaved(job.id) ? '❤️¸ Saved' : '🤝 Save Job'}
+                        ${isJobSaved(job.id) ? ❤️¸ Saved' : 🤝 Save Job'}
                     </button>
                 ` : ''}
             `;
