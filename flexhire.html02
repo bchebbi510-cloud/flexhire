@@ -1,2227 +1,704 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FlexHire - Global Job Marketplace</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary: #4f46e5;
-            --primary-dark: #4338ca;
-            --primary-light: #6366f1;
-            --accent: #22c55e;
-            --accent-dark: #16a34a;
-            --text-dark: #111827;
-            --text-medium: #374151;
-            --text-light: #6b7280;
-            --bg-white: #ffffff;
-            --bg-light: #f8fafc;
-            --bg-lighter: #f1f5f9;
-            --border: #e5e7eb;
-            --success: #22c55e;
-            --error: #ef4444;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-            color: var(--text-dark);
-            background: var(--bg-white);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .navbar {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-        }
-
-        .nav-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 72px;
-        }
-
-        .nav-brand {
-            font-size: 32px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-
-        .nav-link {
-            color: var(--text-medium);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            transition: color 0.2s;
-            position: relative;
-        }
-
-        .nav-link:hover {
-            color: var(--primary);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .nav-actions {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 11px 28px;
-            border-radius: 28px;
-            font-weight: 700;
-            font-size: 15px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            text-decoration: none;
-            display: inline-block;
-            letter-spacing: -0.2px;
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
-        }
-
-        .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-        }
-
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-secondary {
-            background: var(--bg-lighter);
-            color: var(--text-dark);
-        }
-
-        .btn-secondary:hover {
-            background: var(--border);
-        }
-
-        .btn-accent {
-            background: var(--accent);
-            color: white;
-            box-shadow: 0 4px 14px rgba(34, 197, 94, 0.25);
-        }
-
-        .btn-accent:hover {
-            background: var(--accent-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(34, 197, 94, 0.35);
-        }
-
-        .btn-block {
-            width: 100%;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.95) 0%, rgba(67, 56, 202, 0.95) 100%), 
-                        url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80') center/cover;
-            color: white;
-            padding: 120px 24px 100px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%),
-                linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
-            pointer-events: none;
-        }
-
-        .hero-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .hero-title {
-            font-size: clamp(2.75rem, 6vw, 4.5rem);
-            font-weight: 800;
-            margin-bottom: 24px;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            text-shadow: 0 2px 20px rgba(0,0,0,0.2);
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.125rem, 2.5vw, 1.5rem);
-            margin-bottom: 48px;
-            opacity: 0.95;
-            line-height: 1.6;
-            font-weight: 400;
-            text-shadow: 0 1px 10px rgba(0,0,0,0.15);
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 72px;
-        }
-
-        .hero-btn {
-            padding: 18px 40px;
-            border-radius: 32px;
-            font-weight: 700;
-            font-size: 17px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: none;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            letter-spacing: -0.3px;
-        }
-
-        .hero-btn-primary {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        .hero-btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 14px 40px rgba(0,0,0,0.25);
-        }
-
-        .hero-btn-secondary {
-            background: rgba(255,255,255,0.15);
-            color: white;
-            border: 2px solid rgba(255,255,255,0.6);
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-btn-secondary:hover {
-            background: rgba(255,255,255,0.25);
-            border-color: white;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 64px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .hero-stat {
-            text-align: center;
-        }
-
-        .hero-stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 6px;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-stat-label {
-            font-size: 1rem;
-            opacity: 0.9;
-            font-weight: 500;
-        }
-
-        .section {
-            padding: 100px 24px;
-        }
-
-        .section-light {
-            background: var(--bg-light);
-        }
-
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 72px;
-        }
-
-        .section-title {
-            font-size: clamp(2.25rem, 4vw, 3rem);
-            font-weight: 800;
-            margin-bottom: 20px;
-            color: var(--text-dark);
-            letter-spacing: -0.03em;
-        }
-
-        .section-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            max-width: 640px;
-            margin: 0 auto;
-            line-height: 1.7;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 32px;
-        }
-
-        .feature-card {
-            background: var(--bg-white);
-            padding: 48px 36px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            transition: all 0.4s;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.2);
-        }
-
-        .feature-title {
-            font-size: 1.375rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        .feature-text {
-            color: var(--text-light);
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 48px;
-            margin-top: 56px;
-        }
-
-        .step-card {
-            text-align: center;
-            padding: 40px 28px;
-            background: var(--bg-white);
-            border-radius: 16px;
-            transition: all 0.3s;
-        }
-
-        .step-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .step-number {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 800;
-            margin: 0 auto 24px;
-            box-shadow: 0 8px 24px rgba(79, 70, 229, 0.25);
-        }
-
-        .step-title {
-            font-size: 1.375rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        .step-text {
-            color: var(--text-light);
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-
-        .jobs-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 28px;
-        }
-
-        .job-card {
-            background: var(--bg-white);
-            padding: 32px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-            cursor: pointer;
-            position: relative;
-        }
-
-        .job-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 16px 16px 0 0;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .job-card:hover {
-            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
-            transform: translateY(-4px);
-            border-color: var(--primary);
-        }
-
-        .job-card:hover::before {
-            opacity: 1;
-        }
-
-        .job-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 18px;
-        }
-
-        .job-title {
-            font-size: 1.375rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 8px;
-            letter-spacing: -0.02em;
-        }
-
-        .job-company {
-            color: var(--text-light);
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .job-save {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--bg-light);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            font-size: 18px;
-        }
-
-        .job-save:hover {
-            background: var(--primary);
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .job-save.saved {
-            background: var(--primary);
-            color: white;
-        }
-
-        .job-meta {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .job-badge {
-            padding: 7px 14px;
-            border-radius: 8px;
-            font-size: 0.8125rem;
-            font-weight: 700;
-            letter-spacing: 0.3px;
-        }
-
-        .badge-type {
-            background: #ede9fe;
-            color: var(--primary);
-        }
-
-        .badge-location {
-            background: #dcfce7;
-            color: var(--accent-dark);
-        }
-
-        .job-description {
-            color: var(--text-light);
-            line-height: 1.7;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            margin-bottom: 20px;
-            font-size: 0.9375rem;
-        }
-
-        .job-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .job-posted {
-            font-size: 0.875rem;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 50%, var(--accent) 100%);
-            color: white;
-            padding: 100px 24px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 50%),
-                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.08) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .cta-title {
-            font-size: clamp(2.25rem, 4vw, 3.25rem);
-            font-weight: 800;
-            margin-bottom: 24px;
-            letter-spacing: -0.03em;
-            position: relative;
-            z-index: 1;
-        }
-
-        .cta-text {
-            font-size: 1.25rem;
-            margin-bottom: 40px;
-            opacity: 0.95;
-            max-width: 640px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.6;
-            position: relative;
-            z-index: 1;
-        }
-
-        .auth-page {
-            min-height: calc(100vh - 72px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 60px 24px;
-            background: var(--bg-light);
-        }
-
-        .auth-card {
-            background: var(--bg-white);
-            padding: 56px;
-            border-radius: 24px;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
-            width: 100%;
-            max-width: 520px;
-            border: 1px solid var(--border);
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .auth-title {
-            font-size: 2.25rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        .auth-subtitle {
-            color: var(--text-light);
-            font-size: 1rem;
-        }
-
-        .form-group {
-            margin-bottom: 28px;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-            font-size: 0.9375rem;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 14px 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 15px;
-            transition: all 0.2s;
-            font-family: inherit;
-            background: var(--bg-white);
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-        }
-
-        .role-selector {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 14px;
-        }
-
-        .role-option {
-            padding: 24px;
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            background: var(--bg-white);
-        }
-
-        .role-option:hover {
-            border-color: var(--primary);
-            background: #f5f3ff;
-            transform: translateY(-2px);
-        }
-
-        .role-option input {
-            display: none;
-        }
-
-        .role-option input:checked + .role-label {
-            color: var(--primary);
-            font-weight: 800;
-        }
-
-        .role-option:has(input:checked) {
-            border-color: var(--primary);
-            background: #f5f3ff;
-            box-shadow: 0 4px 16px rgba(79, 70, 229, 0.15);
-        }
-
-        .role-label {
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.2s;
-        }
-
-        .auth-switch {
-            text-align: center;
-            margin-top: 28px;
-            color: var(--text-light);
-            font-size: 0.9375rem;
-        }
-
-        .auth-switch a {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        .auth-switch a:hover {
-            text-decoration: underline;
-        }
-
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .jobs-page {
-            padding: 48px 24px 100px;
-            background: var(--bg-light);
-            min-height: calc(100vh - 72px);
-        }
-
-        .jobs-header {
-            max-width: 1280px;
-            margin: 0 auto 40px;
-        }
-
-        .jobs-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        .jobs-subtitle {
-            color: var(--text-light);
-            font-size: 1.125rem;
-        }
-
-        .jobs-filters {
-            max-width: 1280px;
-            margin: 0 auto 40px;
-            background: var(--bg-white);
-            padding: 28px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-
-        .search-input {
-            flex: 1;
-            min-width: 300px;
-            padding: 14px 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 15px;
-            transition: all 0.2s;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-        }
-
-        .filter-select {
-            padding: 14px 18px;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            font-size: 15px;
-            background: var(--bg-white);
-            cursor: pointer;
-            min-width: 180px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .filter-select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
-        }
-
-        .jobs-grid {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-            gap: 28px;
-        }
-
-        .dashboard {
-            padding: 48px 24px 100px;
-            background: var(--bg-light);
-            min-height: calc(100vh - 72px);
-        }
-
-        .dashboard-container {
-            max-width: 1280px;
-            margin: 0 auto;
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .dashboard-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        .dashboard-section {
-            background: var(--bg-white);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            margin-bottom: 28px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-
-        .section-heading {
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 28px;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        .post-job-form {
-            background: var(--bg-white);
-            padding: 40px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            margin-bottom: 28px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
-
-        .form-actions {
-            display: flex;
-            gap: 14px;
-            margin-top: 32px;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.65);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            backdrop-filter: blur(4px);
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--bg-white);
-            border-radius: 24px;
-            max-width: 680px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            box-shadow: 0 24px 80px rgba(0,0,0,0.3);
-        }
-
-        .modal-header {
-            padding: 32px 40px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: var(--text-dark);
-            letter-spacing: -0.02em;
-        }
-
-        .modal-close {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--bg-light);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--text-medium);
-            transition: all 0.2s;
-        }
-
-        .modal-close:hover {
-            background: var(--border);
-            transform: rotate(90deg);
-        }
-
-        .modal-body {
-            padding: 40px;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 40px;
-            right: 40px;
-            background: var(--text-dark);
-            color: white;
-            padding: 18px 28px;
-            border-radius: 14px;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.25);
-            transform: translateY(200%);
-            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 3000;
-            font-weight: 600;
-            font-size: 15px;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-        }
-
-        .toast.success {
-            background: var(--success);
-        }
-
-        .toast.error {
-            background: var(--error);
-        }
-
-        .mobile-toggle {
-            display: none;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 72px;
-                left: 0;
-                right: 0;
-                background: var(--bg-white);
-                flex-direction: column;
-                padding: 24px;
-                border-bottom: 1px solid var(--border);
-                box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-toggle {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-                background: none;
-                border: none;
-                cursor: pointer;
-                padding: 8px;
-            }
-
-            .mobile-toggle span {
-                width: 26px;
-                height: 3px;
-                background: var(--text-dark);
-                border-radius: 3px;
-                transition: all 0.3s;
-            }
-
-            .hero {
-                padding: 80px 20px 70px;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .hero-btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .section {
-                padding: 60px 20px;
-            }
-
-            .jobs-grid,
-            .jobs-showcase {
-                grid-template-columns: 1fr;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 20px;
-            }
-
-            .form-actions {
-                flex-direction: column;
-            }
-
-            .auth-card {
-                padding: 40px 28px;
-            }
-
-            .role-selector {
-                grid-template-columns: 1fr;
-            }
-
-            .jobs-filters {
-                flex-direction: column;
-            }
-
-            .search-input {
-                width: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FlexHire – Global Talent, Local Trust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --neutral-900: #0F172A;
+      --neutral-800: #1E293B;
+      --neutral-700: #334155;
+      --neutral-600: #475569;
+      --neutral-500: #64748B;
+      --neutral-400: #94A3B8;
+      --neutral-300: #CBD5E1;
+      --neutral-200: #E2E8F0;
+      --neutral-100: #F1F5F9;
+      --neutral-50: #F8FAFC;
+      --primary-600: #2563EB;
+      --primary-500: #3B82F6;
+      --primary-100: #DBEAFE;
+      --success-600: #059669;
+      --error-600: #DC2626;
+      --warning-600: #D97706;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.1);
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 16px;
+      --space-4: 24px;
+      --space-5: 32px;
+      --space-6: 48px;
+      --space-7: 64px;
+      --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--neutral-50);
+      color: var(--neutral-900);
+      line-height: 1.5;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 var(--space-3);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 12px 24px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-600);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #1D4ED8;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .btn-secondary {
+      background-color: white;
+      color: var(--neutral-800);
+      border: 1px solid var(--neutral-300);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--neutral-100);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-google {
+      background-color: white;
+      color: var(--neutral-800);
+      border: 1px solid var(--neutral-300);
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+
+    .btn-google:hover {
+      background-color: var(--neutral-100);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Header / Navbar */
+    header {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--space-2) 0;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      text-decoration: none;
+      color: var(--neutral-900);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-4);
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--neutral-700);
+      font-weight: 500;
+      font-size: 16px;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-600);
+    }
+
+    .auth-buttons, .user-menu {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    /* Hero */
+    .hero {
+      padding: var(--space-7) 0;
+      text-align: center;
+      background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      margin-bottom: var(--space-3);
+      color: var(--neutral-900);
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: var(--neutral-700);
+      max-width: 720px;
+      margin: 0 auto var(--space-5);
+    }
+
+    /* Categories */
+    .section {
+      padding: var(--space-6) 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: var(--space-5);
+      color: var(--neutral-900);
+    }
+
+    .categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: var(--space-4);
+    }
+
+    .category-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .category-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .category-card h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: var(--space-2);
+    }
+
+    /* How It Works */
+    .how-it-works {
+      background-color: white;
+    }
+
+    .steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: var(--space-5);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 250px;
+      text-align: center;
+      padding: 0 var(--space-3);
+    }
+
+    .step-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: var(--primary-100);
+      color: var(--primary-600);
+      font-weight: 700;
+      font-size: 20px;
+      border-radius: 50%;
+      margin: 0 auto var(--space-3);
+    }
+
+    .step h3 {
+      font-size: 20px;
+      margin-bottom: var(--space-2);
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      padding: var(--space-6) 0;
+    }
+
+    .cta h2 {
+      font-size: 32px;
+      margin-bottom: var(--space-4);
+    }
+
+    /* Auth Section */
+    .auth-section {
+      padding: var(--space-6) 0;
+      background-color: var(--neutral-100);
+    }
+
+    .auth-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: var(--space-5);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+    }
+
+    .auth-container h2 {
+      text-align: center;
+      margin-bottom: var(--space-4);
+      font-size: 24px;
+    }
+
+    .form-group {
+      margin-bottom: var(--space-3);
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: var(--space-1);
+      font-weight: 500;
+      color: var(--neutral-800);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--neutral-300);
+      border-radius: var(--radius-md);
+      font-size: 16px;
+      font-family: var(--font-body);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary-600);
+      box-shadow: 0 0 0 3px var(--primary-100);
+    }
+
+    .auth-buttons {
+      margin-top: var(--space-4);
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: var(--space-4) 0;
+      color: var(--neutral-500);
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      border-bottom: 1px solid var(--neutral-300);
+    }
+
+    .divider::before {
+      margin-right: var(--space-3);
+    }
+
+    .divider::after {
+      margin-left: var(--space-3);
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--neutral-900);
+      color: white;
+      padding: var(--space-5) 0;
+      margin-top: var(--space-6);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-logo {
+      font-size: 20px;
+      font-weight: 700;
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: var(--space-4);
+    }
+
+    .footer-links a {
+      color: var(--neutral-400);
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        gap: var(--space-3);
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: var(--space-3);
+        text-align: center;
+      }
+    }
+
+    /* Hidden by default */
+    .hidden {
+      display: none !important;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">FlexHire</div>
-            <div class="nav-links" id="navMenu">
-                <a class="nav-link" data-page="home">Home</a>
-                <a class="nav-link" data-page="jobs">Browse Jobs</a>
-                <a class="nav-link auth-only hidden" data-page="dashboard">Dashboard</a>
-            </div>
-            <div class="nav-actions">
-                <a class="btn btn-outline guest-only" data-page="login">Sign In</a>
-                <a class="btn btn-primary guest-only" data-page="signup">Join Now</a>
-                <a class="btn btn-secondary auth-only hidden" data-page="dashboard">Dashboard</a>
-                <a class="btn btn-outline auth-only hidden" id="logoutBtn">Sign Out</a>
-            </div>
-            <button class="mobile-toggle" id="mobileToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <a href="/" class="logo">FlexHire</a>
+        <ul class="nav-links">
+          <li><a href="#jobs">Jobs</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#categories">Categories</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+        <div class="auth-buttons" id="authButtons">
+          <button id="loginBtn" class="btn btn-secondary">Log In</button>
+          <button id="signupBtn" class="btn btn-primary">Sign Up</button>
         </div>
-    </nav>
-
-    <main id="app">
-        <section id="homePage" class="page active">
-            <div class="hero">
-                <div class="hero-container">
-                    <div class="hero-content">
-                        <h1 class="hero-title">Connect Talent with Opportunity Worldwide</h1>
-                        <p class="hero-subtitle">Join millions of professionals and companies shaping the future of work. Find your next role or discover exceptional talent across the globe.</p>
-                        <div class="hero-buttons">
-                            <button class="hero-btn hero-btn-primary" data-page="jobs">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                                </svg>
-                                Find Work
-                            </button>
-                            <button class="hero-btn hero-btn-secondary" data-page="signup">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-                                </svg>
-                                Post a Job
-                            </button>
-                        </div>
-                        <div class="hero-stats">
-                            <div class="hero-stat">
-                                <div class="hero-stat-number">12M+</div>
-                                <div class="hero-stat-label">Active Professionals</div>
-                            </div>
-                            <div class="hero-stat">
-                                <div class="hero-stat-number">500K+</div>
-                                <div class="hero-stat-label">Global Companies</div>
-                            </div>
-                            <div class="hero-stat">
-                                <div class="hero-stat-number">195+</div>
-                                <div class="hero-stat-label">Countries</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <section class="section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 class="section-title">Why Choose FlexHire?</h2>
-                        <p class="section-subtitle">Everything you need to find work or hire talent, all in one powerful platform</p>
-                    </div>
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">ðŸŽ¯</div>
-                            <h3 class="feature-title">Flexible Opportunities</h3>
-                            <p class="feature-text">Full-time, part-time, freelance, or project-based work. Find opportunities that match your lifestyle and career goals.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">âš¡</div>
-                            <h3 class="feature-title">Quick & Efficient</h3>
-                            <p class="feature-text">Post jobs or apply in minutes. Our streamlined process connects you faster than traditional platforms.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">ðŸŒ</div>
-                            <h3 class="feature-title">Global Reach</h3>
-                            <p class="feature-text">Access talent and opportunities from 195+ countries. Work remotely or find local positions worldwide.</p>
-                        </div>
-                        <div class="feature-card">
-                            <div class="feature-icon">ðŸ›¡ï¸</div>
-                            <h3 class="feature-title">Trusted Platform</h3>
-                            <p class="feature-text">Verified profiles, secure payments, and dedicated support. Your success and safety are our priorities.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section section-light">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 class="section-title">How It Works</h2>
-                        <p class="section-subtitle">Simple steps to connect talent with opportunity</p>
-                    </div>
-                    
-                    <h3 style="text-align: center; font-size: 1.75rem; font-weight: 700; margin-bottom: 40px; color: var(--primary);">For Job Seekers</h3>
-                    <div class="steps-grid">
-                        <div class="step-card">
-                            <div class="step-number">1</div>
-                            <h4 class="step-title">Create Your Profile</h4>
-                            <p class="step-text">Sign up and showcase your skills, experience, and what you're looking for</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">2</div>
-                            <h4 class="step-title">Discover Opportunities</h4>
-                            <p class="step-text">Browse thousands of jobs tailored to your preferences and expertise</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">3</div>
-                            <h4 class="step-title">Apply & Connect</h4>
-                            <p class="step-text">Submit applications and connect directly with hiring managers</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">4</div>
-                            <h4 class="step-title">Start Working</h4>
-                            <p class="step-text">Get hired and begin your next career chapter</p>
-                        </div>
-                    </div>
-
-                    <h3 style="text-align: center; font-size: 1.75rem; font-weight: 700; margin: 80px 0 40px; color: var(--primary);">For Employers</h3>
-                    <div class="steps-grid">
-                        <div class="step-card">
-                            <div class="step-number">1</div>
-                            <h4 class="step-title">Post Your Job</h4>
-                            <p class="step-text">Create detailed job listings in minutes with our intuitive interface</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">2</div>
-                            <h4 class="step-title">Review Candidates</h4>
-                            <p class="step-text">Access qualified professionals from our global talent pool</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">3</div>
-                            <h4 class="step-title">Interview & Select</h4>
-                            <p class="step-text">Connect with top candidates and make informed hiring decisions</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">4</div>
-                            <h4 class="step-title">Build Your Team</h4>
-                            <p class="step-text">Onboard talent and grow your business with confidence</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <div class="container">
-                    <div class="section-header">
-                        <h2 class="section-title">Featured Opportunities</h2>
-                        <p class="section-subtitle">Explore trending jobs from top companies worldwide</p>
-                    </div>
-                    <div class="jobs-showcase" id="featuredJobs"></div>
-                </div>
-            </section>
-
-            <section class="cta-section">
-                <div class="container">
-                    <h2 class="cta-title">Ready to Get Started?</h2>
-                    <p class="cta-text">Join thousands of professionals and companies finding success on FlexHire every day</p>
-                    <button class="hero-btn hero-btn-primary" data-page="signup">Create Free Account</button>
-                </div>
-            </section>
-        </section>
-
-        <section id="loginPage" class="page">
-            <div class="auth-page">
-                <div class="auth-card">
-                    <div class="auth-header">
-                        <h2 class="auth-title">Welcome Back</h2>
-                        <p class="auth-subtitle">Sign in to your FlexHire account</p>
-                    </div>
-                    <form id="loginForm">
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" id="loginEmail" placeholder="you@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    </form>
-                    <p class="auth-switch">Don't have an account? <a data-page="signup">Join now</a></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="signupPage" class="page">
-            <div class="auth-page">
-                <div class="auth-card">
-                    <div class="auth-header">
-                        <h2 class="auth-title">Join FlexHire</h2>
-                        <p class="auth-subtitle">Create your account and start your journey</p>
-                    </div>
-                    <form id="signupForm">
-                        <div class="form-group">
-                            <label class="form-label">I am a:</label>
-                            <div class="role-selector">
-                                <label class="role-option">
-                                    <input type="radio" name="role" value="seeker" required>
-                                    <span class="role-label">Job Seeker</span>
-                                </label>
-                                <label class="role-option">
-                                    <input type="radio" name="role" value="employer" required>
-                                    <span class="role-label">Employer</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Full Name</label>
-                            <input type="text" class="form-input" id="signupName" placeholder="John Doe" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-input" id="signupEmail" placeholder="you@example.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Password</label>
-                            <input type="password" class="form-input" id="signupPassword" placeholder="Create a strong password" required minlength="6">
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block">Create Account</button>
-                    </form>
-                    <p class="auth-switch">Already have an account? <a data-page="login">Sign in</a></p>
-                </div>
-            </div>
-        </section>
-
-        <section id="jobsPage" class="page">
-            <div class="jobs-page">
-                <div class="jobs-header">
-                    <h1 class="jobs-title">Browse Opportunities</h1>
-                    <p class="jobs-subtitle">Discover your next career move from thousands of opportunities</p>
-                </div>
-                
-                <div class="jobs-filters">
-                    <input type="text" id="searchInput" placeholder="Search by title, company, or keyword..." class="search-input">
-                    <select id="typeFilter" class="filter-select">
-                        <option value="">All Job Types</option>
-                        <option value="full-time">Full-time</option>
-                        <option value="part-time">Part-time</option>
-                        <option value="freelance">Freelance</option>
-                        <option value="gig">Project-based</option>
-                    </select>
-                    <select id="locationFilter" class="filter-select">
-                        <option value="">All Locations</option>
-                        <option value="remote">Remote</option>
-                        <option value="local">On-site</option>
-                    </select>
-                </div>
-
-                <div id="jobsList" class="jobs-grid"></div>
-            </div>
-        </section>
-
-        <section id="dashboardPage" class="page">
-            
-            <div class="dashboard">
-                <div class="dashboard-container">
-                    <div class="dashboard-header">
-                        <h1 class="dashboard-title">Dashboard</h1>
-                    </div>
-                    
-                    <div id="employerDashboard" class="hidden">
-                        <div class="dashboard-section">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px;">
-                                <h2 class="section-heading">My Posted Jobs</h2>
-                                <button class="btn btn-accent" id="showPostJobBtn">Post New Job</button>
-                            </div>
-                            
-                            <div id="postJobForm" class="post-job-form hidden">
-                                <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 28px; color: var(--text-dark);">Post a New Job</h3>
-                                <form id="jobForm">
-                                    <div class="form-group">
-                                        <label class="form-label">Job Title</label>
-                                        <input type="text" class="form-input" id="jobTitle" placeholder="e.g. Senior Product Designer" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Job Description</label>
-                                        <textarea class="form-input" id="jobDescription" rows="5" placeholder="Describe the role, responsibilities, and requirements..." required></textarea>
-                                    </div>
-                                    <div class="form-row">
-                                        <div class="form-group">
-                                            <label class="form-label">Job Type</label>
-                                            <select class="form-input" id="jobType" required>
-                                                <option value="full-time">Full-time</option>
-                                                <option value="part-time">Part-time</option>
-                                                <option value="freelance">Freelance</option>
-                                                <option value="gig">Project-based</option>
-                                            </select>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="form-label">Location</label>
-                                            <select class="form-input" id="jobLocation" required>
-                                                <option value="remote">Remote</option>
-                                                <option value="local">On-site</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-actions">
-                                        <button type="submit" class="btn btn-primary">Publish Job</button>
-                                        <button type="button" class="btn btn-secondary" id="cancelPostBtn">Cancel</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div id="myJobsList" class="jobs-grid"></div>
-                        </div>
-                    </div>
-
-                    <div id="seekerDashboard" class="hidden">
-                        <div class="dashboard-section">
-                            <h2 class="section-heading">Saved Jobs</h2>
-                            <div id="savedJobsList" class="jobs-grid"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div id="jobModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2 class="modal-title" id="modalJobTitle"></h2>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body" id="jobModalContent"></div>
+        <div class="user-menu hidden" id="userMenu">
+          <span id="userName" class="btn btn-secondary" style="cursor: default; padding: 12px;"></span>
+          <button id="logoutBtn" class="btn btn-secondary">Sign Out</button>
         </div>
+      </nav>
     </div>
+  </header>
 
-    <div id="toast" class="toast"></div>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <h1>Hire Global Talent. Work With Local Trust.</h1>
+      <p>FlexHire connects businesses with vetted professionals across 150+ countries — with transparent pricing, zero commissions, and enterprise-grade security.</p>
+      <a href="#get-started" class="btn btn-primary">Get Started Free</a>
+    </div>
+  </section>
 
-    <script>
-        const state = {
-            currentUser: null,
-            currentPage: 'home',
-            jobs: [],
-            editingJobId: null
-        };
+  <!-- Categories -->
+  <section class="section" id="categories">
+    <div class="container">
+      <h2 class="section-title">Popular Categories</h2>
+      <div class="categories">
+        <div class="category-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <h3>Web Development</h3>
+        </div>
+        <div class="category-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <h3>Design & Creative</h3>
+        </div>
+        <div class="category-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+            <line x1="8" y1="21" x2="16" y2="21"></line>
+            <line x1="12" y1="17" x2="12" y2="21"></line>
+          </svg>
+          <h3>Writing & Translation</h3>
+        </div>
+        <div class="category-card">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+          <h3>Marketing & Sales</h3>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        function initializeMockData() {
-            const mockJobs = [
-                {
-                    id: '1',
-                    title: 'Senior Product Designer',
-                    description: 'We are seeking an experienced product designer to lead design initiatives for our flagship products. You will work closely with product managers and engineers to create intuitive, beautiful user experiences.',
-                    type: 'full-time',
-                    location: 'remote',
-                    company: 'TechVision Inc.',
-                    postedBy: 'demo@employer.com',
-                    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    id: '2',
-                    title: 'Freelance Brand Designer',
-                    description: 'Looking for a creative brand designer to develop a complete visual identity including logo, color palette, and brand guidelines for a new startup.',
-                    type: 'freelance',
-                    location: 'remote',
-                    company: 'StartupLab',
-                    postedBy: 'demo@employer.com',
-                    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    id: '3',
-                    title: 'Part-time Content Strategist',
-                    description: 'Join our marketing team to develop content strategies, create editorial calendars, and write compelling copy for various channels. Flexible 20 hours per week.',
-                    type: 'part-time',
-                    location: 'local',
-                    company: 'Digital Growth Agency',
-                    postedBy: 'demo@employer.com',
-                    createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    id: '4',
-                    title: 'Full Stack Developer',
-                    description: 'Build and maintain scalable web applications using React, Node.js, and PostgreSQL. Work with a talented team on cutting-edge projects.',
-                    type: 'full-time',
-                    location: 'remote',
-                    company: 'CloudTech Solutions',
-                    postedBy: 'demo@employer.com',
-                    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString()
-                },
-                {
-                    id: '5',
-                    title: 'UX Research Consultant',
-                    description: 'Conduct user research, usability testing, and provide actionable insights for product improvements. Project-based engagement.',
-                    type: 'gig',
-                    location: 'remote',
-                    company: 'Innovation Labs',
-                    postedBy: 'demo@employer.com',
-                    createdAt: new Date().toISOString()
-                },
-                {
-                    id: '6',
-                    title: 'Marketing Manager',
-                    description: 'Lead marketing initiatives, manage campaigns, and drive growth for our B2B SaaS platform. Experience with digital marketing required.',
-                    type: 'full-time',
-                    location: 'local',
-                    company: 'SaaS Ventures',
-                    postedBy: 'demo@employer.com',
-                    createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString()
-                }
-            ];
+  <!-- How It Works -->
+  <section class="section how-it-works" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>Create a Free Account</h3>
+          <p>Sign up in seconds with Google or email. Verify your identity and set up your profile.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Post a Job or Browse Talent</h3>
+          <p>Employers post jobs with clear scope and budget. Freelancers explore opportunities worldwide.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Work & Get Paid Securely</h3>
+          <p>Use our integrated workspace and milestone payments. No hidden fees. Ever.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            if (!localStorage.getItem('flexhire_jobs')) {
-                localStorage.setItem('flexhire_jobs', JSON.stringify(mockJobs));
-            }
+  <!-- CTA -->
+  <section class="cta" id="get-started">
+    <div class="container">
+      <h2>Ready to Transform Your Work?</h2>
+      <p>Join thousands of professionals and businesses already thriving on FlexHire.</p>
+      <button id="ctaLoginBtn" class="btn btn-primary">Sign Up Free</button>
+    </div>
+  </section>
+
+  <!-- Auth Section -->
+  <section class="auth-section hidden" id="authSection">
+    <div class="container">
+      <div class="auth-container">
+        <h2 id="authTitle">Sign In to FlexHire</h2>
+        <div class="auth-buttons">
+          <button id="googleAuthBtn" class="btn btn-google">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            Continue with Google
+          </button>
+        </div>
+        <div class="divider">or</div>
+        <form id="emailAuthForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" class="form-control" required minlength="6">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;">Continue</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <a href="/" class="footer-logo">FlexHire</a>
+        <div class="footer-links">
+          <a href="#terms">Terms</a>
+          <a href="#privacy">Privacy</a>
+          <a href="#security">Security</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // DOM Elements
+    const authButtons = document.getElementById('authButtons');
+    const userMenu = document.getElementById('userMenu');
+    const userName = document.getElementById('userName');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const ctaLoginBtn = document.getElementById('ctaLoginBtn');
+    const authSection = document.getElementById('authSection');
+    const authTitle = document.getElementById('authTitle');
+    const googleAuthBtn = document.getElementById('googleAuthBtn');
+    const emailAuthForm = document.getElementById('emailAuthForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    let currentMode = 'login'; // 'login' or 'signup'
+
+    // Initialize Firebase auth state listener
+    function initAuthState() {
+      if (typeof firebase === 'undefined' || typeof firebase.auth === 'undefined') {
+        console.error('Firebase Auth not loaded');
+        return;
+      }
+
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          authButtons.classList.add('hidden');
+          userMenu.classList.remove('hidden');
+          userName.textContent = user.displayName || user.email.split('@')[0];
+        } else {
+          authButtons.classList.remove('hidden');
+          userMenu.classList.add('hidden');
+          authSection.classList.add('hidden');
         }
-
-        function saveToStorage(key, data) {
-            localStorage.setItem(`flexhire_${key}`, JSON.stringify(data));
-        }
-
-        function getFromStorage(key) {
-            const data = localStorage.getItem(`flexhire_${key}`);
-            return data ? JSON.parse(data) : null;
-        }
-
-        function signup(name, email, password, role) {
-            const users = getFromStorage('users') || [];
-            
-            if (users.find(u => u.email === email)) {
-                showToast('Email already registered', 'error');
-                return false;
-            }
-
-            const newUser = {
-                id: Date.now().toString(),
-                name,
-                email,
-                password,
-                role,
-                createdAt: new Date().toISOString()
-            };
-
-            users.push(newUser);
-            saveToStorage('users', users);
-            
-            login(email, password);
-            return true;
-        }
-
-        function login(email, password) {
-            const users = getFromStorage('users') || [];
-            const user = users.find(u => u.email === email && u.password === password);
-
-            if (user) {
-                const { password, ...userWithoutPassword } = user;
-                state.currentUser = userWithoutPassword;
-                saveToStorage('currentUser', userWithoutPassword);
-                updateAuthUI();
-                navigateTo('dashboard');
-                showToast('Welcome back!', 'success');
-                return true;
-            }
-
-            showToast('Invalid email or password', 'error');
-            return false;
-        }
-
-        function logout() {
-            state.currentUser = null;
-            localStorage.removeItem('flexhire_currentUser');
-            updateAuthUI();
-            navigateTo('home');
-            showToast('Signed out successfully', 'success');
-        }
-
-        function checkAuth() {
-            const user = getFromStorage('currentUser');
-            if (user) {
-                state.currentUser = user;
-                updateAuthUI();
-            }
-        }
-
-        function updateAuthUI() {
-            const authLinks = document.querySelectorAll('.auth-only');
-            const guestLinks = document.querySelectorAll('.guest-only');
-
-            if (state.currentUser) {
-                authLinks.forEach(el => el.classList.remove('hidden'));
-                guestLinks.forEach(el => el.classList.add('hidden'));
-            } else {
-                authLinks.forEach(el => el.classList.add('hidden'));
-                guestLinks.forEach(el => el.classList.remove('hidden'));
-            }
-        }
-
-        function navigateTo(page) {
-            if (page === 'dashboard' && !state.currentUser) {
-                navigateTo('login');
-                showToast('Please sign in first', 'error');
-                return;
-            }
-
-            state.currentPage = page;
-            
-            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-            const targetPage = document.getElementById(`${page}Page`);
-            if (targetPage) {
-                targetPage.classList.add('active');
-            }
-
-            if (page === 'home') {
-                loadFeaturedJobs();
-            } else if (page === 'jobs') {
-                loadJobs();
-            } else if (page === 'dashboard') {
-                loadDashboard();
-            }
-
-            document.getElementById('navMenu').classList.remove('active');
-            window.scrollTo(0, 0);
-        }
-
-        function loadFeaturedJobs() {
-            const jobs = getFromStorage('jobs') || [];
-            const featured = jobs.slice(0, 6);
-            renderJobs(featured, 'featuredJobs', false);
-        }
-
-        function loadJobs(filters = {}) {
-            const jobs = getFromStorage('jobs') || [];
-            state.jobs = jobs;
-
-            let filteredJobs = [...jobs];
-
-            if (filters.search) {
-                const search = filters.search.toLowerCase();
-                filteredJobs = filteredJobs.filter(job => 
-                    job.title.toLowerCase().includes(search) ||
-                    job.description.toLowerCase().includes(search) ||
-                    job.company.toLowerCase().includes(search)
-                );
-            }
-
-            if (filters.type) {
-                filteredJobs = filteredJobs.filter(job => job.type === filters.type);
-            }
-
-            if (filters.location) {
-                filteredJobs = filteredJobs.filter(job => job.location === filters.location);
-            }
-
-            renderJobs(filteredJobs, 'jobsList');
-        }
-
-        function renderJobs(jobs, containerId, showActions = true) {
-            const container = document.getElementById(containerId);
-            
-            if (jobs.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 4rem; grid-column: 1/-1; font-size: 1.125rem;">No jobs found. Try adjusting your filters.</p>';
-                return;
-            }
-
-            container.innerHTML = jobs.map(job => `
-                <div class="job-card" data-job-id="${job.id}">
-                    <div class="job-header">
-                        <div>
-                            <h3 class="job-title">${job.title}</h3>
-                            <div class="job-company">${job.company}</div>
-                        </div>
-                        ${showActions && state.currentUser && state.currentUser.role === 'seeker' ? `
-                            <button class="job-save ${isJobSaved(job.id) ? 'saved' : ''}" onclick="event.stopPropagation(); toggleSaveJob('${job.id}')">
-                                ${isJobSaved(job.id) ? 'â¤ï¸' : 'ðŸ¤'}
-                            </button>
-                        ` : ''}
-                    </div>
-                    <div class="job-meta">
-                        <span class="job-badge badge-type">${formatJobType(job.type)}</span>
-                        <span class="job-badge badge-location">${formatLocation(job.location)}</span>
-                    </div>
-                    <p class="job-description">${job.description}</p>
-                    <div class="job-footer">
-                        <span class="job-posted">${formatDate(job.createdAt)}</span>
-                        ${showActions && state.currentUser && state.currentUser.role === 'employer' && job.postedBy === state.currentUser.email ? `
-                            <div style="display: flex; gap: 10px;">
-                                <button class="btn btn-secondary" style="padding: 8px 18px; font-size: 0.875rem;" onclick="event.stopPropagation(); editJob('${job.id}')">Edit</button>
-                                <button class="btn btn-outline" style="padding: 8px 18px; font-size: 0.875rem; color: var(--error); border-color: var(--error);" onclick="event.stopPropagation(); deleteJob('${job.id}')">Delete</button>
-                            </div>
-                        ` : ''}
-                    </div>
-                </div>
-            `).join('');
-
-            container.querySelectorAll('.job-card').forEach(card => {
-                card.addEventListener('click', (e) => {
-                    if (!e.target.closest('button')) {
-                        const jobId = card.dataset.jobId;
-                        showJobDetail(jobId);
-                    }
-                });
-            });
-        }
-
-        function formatJobType(type) {
-            const types = {
-                'full-time': 'Full-time',
-                'part-time': 'Part-time',
-                'freelance': 'Freelance',
-                'gig': 'Project-based'
-            };
-            return types[type] || type;
-        }
-
-        function formatLocation(location) {
-            return location === 'remote' ? 'ðŸŒ Remote' : 'ðŸ“ On-site';
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-            const now = new Date();
-            const diffTime = Math.abs(now - date);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            if (diffDays === 0) return 'Posted today';
-            if (diffDays === 1) return 'Posted yesterday';
-            if (diffDays < 7) return `Posted ${diffDays} days ago`;
-            if (diffDays < 30) return `Posted ${Math.floor(diffDays / 7)} weeks ago`;
-            
-            return `Posted ${date.toLocaleDateString()}`;
-        }
-
-        function showJobDetail(jobId) {
-            const job = state.jobs.find(j => j.id === jobId);
-            if (!job) return;
-
-            const modal = document.getElementById('jobModal');
-            const titleEl = document.getElementById('modalJobTitle');
-            const content = document.getElementById('jobModalContent');
-
-            titleEl.textContent = job.title;
-
-            content.innerHTML = `
-                <div style="margin-bottom: 28px;">
-                    <div style="font-size: 1.25rem; font-weight: 700; color: var(--text-dark); margin-bottom: 10px;">${job.company}</div>
-                    <div class="job-meta">
-                        <span class="job-badge badge-type">${formatJobType(job.type)}</span>
-                        <span class="job-badge badge-location">${formatLocation(job.location)}</span>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 28px;">
-                    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 14px; color: var(--text-dark);">About the Role</h3>
-                    <p style="color: var(--text-light); line-height: 1.8; font-size: 1rem;">${job.description}</p>
-                </div>
-                
-                <div style="padding: 18px; background: var(--bg-lighter); border-radius: 12px; margin-bottom: 28px;">
-                    <p style="font-size: 0.9375rem; color: var(--text-light); font-weight: 500;">${formatDate(job.createdAt)}</p>
-                </div>
-                
-                ${state.currentUser && state.currentUser.role === 'seeker' ? `
-                    <button class="btn btn-primary btn-block" onclick="toggleSaveJob('${job.id}'); closeModal();">
-                        ${isJobSaved(job.id) ? 'â¤ï¸ Saved' : 'ðŸ¤ Save Job'}
-                    </button>
-                ` : ''}
-            `;
-
-            modal.classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('jobModal').classList.remove('active');
-        }
-
-        function isJobSaved(jobId) {
-            if (!state.currentUser) return false;
-            const savedJobs = getFromStorage(`saved_${state.currentUser.id}`) || [];
-            return savedJobs.includes(jobId);
-        }
-
-        function toggleSaveJob(jobId) {
-            if (!state.currentUser) {
-                showToast('Please sign in to save jobs', 'error');
-                navigateTo('login');
-                return;
-            }
-
-            const savedJobs = getFromStorage(`saved_${state.currentUser.id}`) || [];
-            const index = savedJobs.indexOf(jobId);
-
-            if (index > -1) {
-                savedJobs.splice(index, 1);
-                showToast('Job removed from saved', 'success');
-            } else {
-                savedJobs.push(jobId);
-                showToast('Job saved successfully!', 'success');
-            }
-
-            saveToStorage(`saved_${state.currentUser.id}`, savedJobs);
-            
-            if (state.currentPage === 'dashboard') {
-                loadDashboard();
-            } else if (state.currentPage === 'jobs') {
-                loadJobs();
-            } else if (state.currentPage === 'home') {
-                loadFeaturedJobs();
-            }
-        }
-
-        function postJob(jobData) {
-            const jobs = getFromStorage('jobs') || [];
-            
-            const newJob = {
-                id: Date.now().toString(),
-                ...jobData,
-                postedBy: state.currentUser.email,
-                company: state.currentUser.name,
-                createdAt: new Date().toISOString()
-            };
-
-            jobs.push(newJob);
-            saveToStorage('jobs', jobs);
-            
-            showToast('Job posted successfully!', 'success');
-            loadDashboard();
-            document.getElementById('postJobForm').classList.add('hidden');
-            document.getElementById('jobForm').reset();
-        }
-
-        function editJob(jobId) {
-            const job = state.jobs.find(j => j.id === jobId);
-            if (!job) return;
-
-            state.editingJobId = jobId;
-            
-            document.getElementById('jobTitle').value = job.title;
-            document.getElementById('jobDescription').value = job.description;
-            document.getElementById('jobType').value = job.type;
-            document.getElementById('jobLocation').value = job.location;
-            
-            document.getElementById('postJobForm').classList.remove('hidden');
-            document.getElementById('postJobForm').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function updateJob(jobId, jobData) {
-            const jobs = getFromStorage('jobs') || [];
-            const index = jobs.findIndex(j => j.id === jobId);
-            
-            if (index !== -1) {
-                jobs[index] = {
-                    ...jobs[index],
-                    ...jobData
-                };
-                saveToStorage('jobs', jobs);
-                showToast('Job updated successfully!', 'success');
-                loadDashboard();
-                document.getElementById('postJobForm').classList.add('hidden');
-                document.getElementById('jobForm').reset();
-                state.editingJobId = null;
-            }
-        }
-
-        function deleteJob(jobId) {
-            if (!confirm('Are you sure you want to delete this job posting?')) return;
-
-            const jobs = getFromStorage('jobs') || [];
-            const filtered = jobs.filter(j => j.id !== jobId);
-            saveToStorage('jobs', filtered);
-            
-            showToast('Job deleted successfully', 'success');
-            loadDashboard();
-        }
-
-        function loadDashboard() {
-            if (!state.currentUser) return;
-
-            const employerDash = document.getElementById('employerDashboard');
-            const seekerDash = document.getElementById('seekerDashboard');
-
-            if (state.currentUser.role === 'employer') {
-                employerDash.classList.remove('hidden');
-                seekerDash.classList.add('hidden');
-                
-                const jobs = getFromStorage('jobs') || [];
-                const myJobs = jobs.filter(j => j.postedBy === state.currentUser.email);
-                state.jobs = jobs;
-                renderJobs(myJobs, 'myJobsList');
-            } else {
-                employerDash.classList.add('hidden');
-                seekerDash.classList.remove('hidden');
-                
-                const jobs = getFromStorage('jobs') || [];
-                const savedJobIds = getFromStorage(`saved_${state.currentUser.id}`) || [];
-                const savedJobs = jobs.filter(j => savedJobIds.includes(j.id));
-                state.jobs = jobs;
-                renderJobs(savedJobs, 'savedJobsList');
-            }
-        }
-
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = `toast ${type} show`;
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3500);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            initializeMockData();
-            checkAuth();
-            loadFeaturedJobs();
-
-            document.querySelectorAll('[data-page]').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const page = e.target.closest('[data-page]').dataset.page;
-                    navigateTo(page);
-                });
-            });
-
-            document.getElementById('mobileToggle').addEventListener('click', () => {
-                document.getElementById('navMenu').classList.toggle('active');
-            });
-
-            document.getElementById('logoutBtn').addEventListener('click', (e) => {
-                e.preventDefault();
-                logout();
-            });
-
-            document.getElementById('loginForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                login(email, password);
-            });
-
-            document.getElementById('signupForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const name = document.getElementById('signupName').value;
-                const email = document.getElementById('signupEmail').value;
-                const password = document.getElementById('signupPassword').value;
-                const role = document.querySelector('input[name="role"]:checked').value;
-                signup(name, email, password, role);
-            });
-
-            document.getElementById('searchInput').addEventListener('input', (e) => {
-                loadJobs({
-                    search: e.target.value,
-                    type: document.getElementById('typeFilter').value,
-                    location: document.getElementById('locationFilter').value
-                });
-            });
-
-            document.getElementById('typeFilter').addEventListener('change', (e) => {
-                loadJobs({
-                    search: document.getElementById('searchInput').value,
-                    type: e.target.value,
-                    location: document.getElementById('locationFilter').value
-                });
-            });
-
-            document.getElementById('locationFilter').addEventListener('change', (e) => {
-                loadJobs({
-                    search: document.getElementById('searchInput').value,
-                    type: document.getElementById('typeFilter').value,
-                    location: e.target.value
-                });
-            });
-
-            document.getElementById('showPostJobBtn').addEventListener('click', () => {
-                document.getElementById('postJobForm').classList.remove('hidden');
-                state.editingJobId = null;
-                document.getElementById('jobForm').reset();
-            });
-
-            document.getElementById('cancelPostBtn').addEventListener('click', () => {
-                document.getElementById('postJobForm').classList.add('hidden');
-                document.getElementById('jobForm').reset();
-                state.editingJobId = null;
-            });
-
-            document.getElementById('jobForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                
-                const jobData = {
-                    title: document.getElementById('jobTitle').value,
-                    description: document.getElementById('jobDescription').value,
-                    type: document.getElementById('jobType').value,
-                    location: document.getElementById('jobLocation').value
-                };
-
-                if (state.editingJobId) {
-                    updateJob(state.editingJobId, jobData);
-                } else {
-                    postJob(jobData);
-                }
-            });
-
-            document.querySelector('.modal-close').addEventListener('click', closeModal);
-            document.getElementById('jobModal').addEventListener('click', (e) => {
-                if (e.target.id === 'jobModal') {
-                    closeModal();
-                }
-            });
+      });
+    }
+
+    // Google Sign-In
+    function signInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
+      firebase.auth().signInWithPopup(provider)
+        .catch(error => {
+          console.error('Google sign-in error:', error);
+          alert('Sign-in failed. Please try again.');
         });
-
-        window.editJob = editJob;
-        window.deleteJob = deleteJob;
-        window.toggleSaveJob = toggleSaveJob;
-        window.closeModal = closeModal;
-    </script>
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-  import {
-    getFirestore,
-    doc,
-    setDoc,
-    getDoc
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
-    authDomain: "flexhire-71294.firebaseapp.com",
-    projectId: "flexhire-71294",
-    appId: "1:507262046702:web:fc19cca1221901c910feff"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const provider = new GoogleAuthProvider();
-
-  // Google Login
-  window.loginWithGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
-    const user = result.user;
-
-    const snap = await getDoc(doc(db, "users", user.uid));
-    if (snap.exists()) {
-      redirectUser(snap.data().role);
-    } else {
-      alert("Please register first");
-    }
-  };
-
-  // Register (Email + Role)
-  window.register = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const role = document.getElementById("role").value;
-
-    if (!role) {
-      alert("Choose account type");
-      return;
     }
 
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const user = cred.user;
+    // Email/Password Auth
+    function signInWithEmail(email, password) {
+      if (currentMode === 'login') {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+          .catch(error => {
+            console.error('Sign-in error:', error);
+            alert('Sign-in failed: ' + error.message);
+          });
+      } else {
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then(() => {
+            const user = firebase.auth().currentUser;
+            if (user) {
+              const displayName = email.split('@')[0];
+              user.updateProfile({ displayName })
+                .catch(console.error);
+            }
+          })
+          .catch(error => {
+            console.error('Sign-up error:', error);
+            alert('Sign-up failed: ' + error.message);
+          });
+      }
+    }
 
-    await setDoc(doc(db, "users", user.uid), {
-      email: user.email,
-      role: role,
-      createdAt: new Date()
+    // Sign out
+    function signOut() {
+      firebase.auth().signOut()
+        .catch(error => {
+          console.error('Sign-out error:', error);
+          alert('Sign-out failed. Please try again.');
+        });
+    }
+
+    // Toggle auth mode
+    function toggleAuthMode(mode) {
+      currentMode = mode;
+      authTitle.textContent = mode === 'login' ? 'Sign In to FlexHire' : 'Create Your Account';
+      signupBtn.textContent = mode === 'login' ? 'Need an account?' : 'Already have one?';
+    }
+
+    // Event Listeners
+    loginBtn.addEventListener('click', () => {
+      toggleAuthMode('login');
+      authSection.classList.remove('hidden');
+      window.scrollTo({ top: authSection.offsetTop, behavior: 'smooth' });
     });
 
-    redirectUser(role);
-  };
+    signupBtn.addEventListener('click', () => {
+      toggleAuthMode('signup');
+      authSection.classList.remove('hidden');
+      window.scrollTo({ top: authSection.offsetTop, behavior: 'smooth' });
+    });
 
-  // Login (Email)
-  window.login = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+    ctaLoginBtn.addEventListener('click', () => {
+      toggleAuthMode('signup');
+      authSection.classList.remove('hidden');
+      window.scrollTo({ top: authSection.offsetTop, behavior: 'smooth' });
+    });
 
-    const cred = await signInWithEmailAndPassword(auth, email, password);
-    const user = cred.user;
+    logoutBtn.addEventListener('click', signOut);
 
-    const snap = await getDoc(doc(db, "users", user.uid));
-    if (snap.exists()) {
-      redirectUser(snap.data().role);
-    }
-  };
+    googleAuthBtn.addEventListener('click', signInWithGoogle);
 
-  // Logout
-  window.logout = async () => {
-    await signOut(auth);
-    window.location.href = "index.html";
-  };
+    emailAuthForm.addEventListener('submit', e => {
+      e.preventDefault();
+      signInWithEmail(emailInput.value.trim(), passwordInput.value);
+    });
 
-  // Redirect
-  function redirectUser(role) {
-    window.location.href = role === "company" ? "company.html" : "worker.html";
-  }
-
-  // Protect pages
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) return;
-    const snap = await getDoc(doc(db, "users", user.uid));
-    if (snap.exists()) redirectUser(snap.data().role);
-  });
-</script>
-
-<!-- HTML -->
-<button onclick="loginWithGoogle()">Sign in with Google</button>
-
-<h3>Create Account</h3>
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
-
-<select id="role">
-  <option value="">Choose account type</option>
-  <option value="worker">Job Seeker</option>
-  <option value="company">Company</option>
-</select>
-
-<button onclick="register()">Register</button>
-
-<h3>Login</h3>
-<button onclick="login()">Login</button>
-
-<div id="user-info"></div>
-<!-- AUTH UI -->
-<button onclick="loginWithGoogle()">Sign in with Google</button>
-
-<h3>Create Account</h3>
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
-
-<select id="role">
-  <option value="">Choose account type</option>
-  <option value="worker">Job Seeker</option>
-  <option value="company">Company</option>
-</select>
-
-<button onclick="register()">Register</button>
-
-<h3>Login</h3>
-<button onclick="login()">Login</button>
-
-<div id="user-info" style="margin-top:10px;"></div>
-
-<!-- Sign Out Button (hidden by default) -->
-<button 
-  id="logout-btn"
-  onclick="logout()" 
-  style="display:none; padding:10px 20px; border-radius:6px; background:#ff4d4f; color:white; border:none; cursor:pointer; margin-top:15px;">
-  Sign Out
-</button>
-
-<!-- Firebase SDK -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
-    authDomain: "flexhire-71294.firebaseapp.com",
-    projectId: "flexhire-71294",
-    appId: "1:507262046702:web:fc19cca1221901c910feff"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  // Google Login
-  window.loginWithGoogle = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      document.getElementById("user-info").innerText =
-        `Welcome ${result.user.displayName} (${result.user.email})`;
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  // Email Register
-  window.register = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      alert("Account created successfully");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  // Email Login
-  window.login = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert("Logged in successfully");
-    } catch (error) {
-      alert(error.message);
-    }
-  };
-
-  // Logout
-  window.logout = async () => {
-    await signOut(auth);
-    document.getElementById("user-info").innerText = "";
-    window.location.reload();
-  };
-
-  // Show / Hide Sign Out button automatically
-  onAuthStateChanged(auth, (user) => {
-    const logoutBtn = document.getElementById("logout-btn");
-    const userInfo = document.getElementById("user-info");
-
-    if (user) {
-      logoutBtn.style.display = "inline-block";
-      userInfo.innerText = `Welcome ${user.email}`;
-    } else {
-      logoutBtn.style.display = "none";
-      userInfo.innerText = "";
-    }
-  });
-</script>
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initAuthState();
+    });
+  </script>
 </body>
-    </html>
+</html>
