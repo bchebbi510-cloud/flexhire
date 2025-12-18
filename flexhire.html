@@ -2154,6 +2154,7 @@
     onAuthStateChanged
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
     authDomain: "flexhire-71294.firebaseapp.com",
@@ -2161,6 +2162,7 @@
     appId: "1:507262046702:web:fc19cca1221901c910feff"
   };
 
+  // Init
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
@@ -2176,10 +2178,15 @@
     }
   };
 
-  // Email Register
+  // Register (Email / Password)
   window.register = async () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      alert("Please fill email and password");
+      return;
+    }
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
@@ -2189,10 +2196,15 @@
     }
   };
 
-  // Email Login
+  // Login (Email / Password)
   window.login = async () => {
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
+
+    if (!email || !password) {
+      alert("Please fill email and password");
+      return;
+    }
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
@@ -2206,13 +2218,15 @@
   window.logout = async () => {
     await signOut(auth);
     document.getElementById("user-info").innerText = "";
-    window.location.reload();
+    document.getElementById("logout-btn").style.display = "none";
   };
 
-  // Show / Hide Sign Out button automatically
+  // Auth state observer
   onAuthStateChanged(auth, (user) => {
     const logoutBtn = document.getElementById("logout-btn");
     const userInfo = document.getElementById("user-info");
+
+    if (!logoutBtn || !userInfo) return;
 
     if (user) {
       logoutBtn.style.display = "inline-block";
