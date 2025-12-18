@@ -1654,7 +1654,7 @@
                         </div>
                         ${showActions && state.currentUser && state.currentUser.role === 'seeker' ? `
                             <button class="job-save ${isJobSaved(job.id) ? 'saved' : ''}" onclick="event.stopPropagation(); toggleSaveJob('${job.id}')">
-                                ${isJobSaved(job.id) ? 'â¤ï¸' : 'ðŸ¤'}
+                                ${isJobSaved(job.id) ? '❤️ : '🤍}
                             </button>
                         ` : ''}
                     </div>
@@ -1696,7 +1696,7 @@
         }
 
         function formatLocation(location) {
-            return location === 'remote' ? 'ðŸŒ Remote' : 'ðŸ“ On-site';
+            return location === 'remote' ? 🌐 Remote' : 📌 On-site';
         }
 
         function formatDate(dateString) {
@@ -1743,7 +1743,7 @@
                 
                 ${state.currentUser && state.currentUser.role === 'seeker' ? `
                     <button class="btn btn-primary btn-block" onclick="toggleSaveJob('${job.id}'); closeModal();">
-                        ${isJobSaved(job.id) ? 'â¤ï¸ Saved' : 'ðŸ¤ Save Job'}
+                        ${isJobSaved(job.id) ? '❤️¸ Saved' : '🤝 Save Job'}
                     </button>
                 ` : ''}
             `;
