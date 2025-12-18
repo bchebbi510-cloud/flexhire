@@ -1998,13 +1998,20 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
@@ -2015,64 +2022,96 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
+  const db = getFirestore(app);
   const provider = new GoogleAuthProvider();
 
-  // Sign in with Google
+  // Google Login
   window.loginWithGoogle = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      document.getElementById("user-info").innerText = 
-        `Welcome ${result.user.displayName} (${result.user.email})`;
-      alert("Welcome " + result.user.displayName);
-    } catch (error) {
-      alert(error.message);
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const snap = await getDoc(doc(db, "users", user.uid));
+    if (snap.exists()) {
+      redirectUser(snap.data().role);
+    } else {
+      alert("Please register first");
     }
   };
 
-  // Sign out
+  // Register (Email + Role)
+  window.register = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const role = document.getElementById("role").value;
+
+    if (!role) {
+      alert("Choose account type");
+      return;
+    }
+
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const user = cred.user;
+
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      role: role,
+      createdAt: new Date()
+    });
+
+    redirectUser(role);
+  };
+
+  // Login (Email)
+  window.login = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const user = cred.user;
+
+    const snap = await getDoc(doc(db, "users", user.uid));
+    if (snap.exists()) {
+      redirectUser(snap.data().role);
+    }
+  };
+
+  // Logout
   window.logout = async () => {
     await signOut(auth);
-    document.getElementById("user-info").innerText = "";
-    alert("You have been signed out");
+    window.location.href = "index.html";
   };
-// Register with Email & Password
-window.register = async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
 
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    alert("Account created successfully");
-  } catch (error) {
-    alert(error.message);
+  // Redirect
+  function redirectUser(role) {
+    window.location.href = role === "company" ? "company.html" : "worker.html";
   }
-};
 
-// Login with Email & Password
-window.login = async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    alert("Logged in successfully");
-  } catch (error) {
-    alert(error.message);
-  }
-};
+  // Protect pages
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    const snap = await getDoc(doc(db, "users", user.uid));
+    if (snap.exists()) redirectUser(snap.data().role);
+  });
 </script>
 
-<!-- HTML buttons -->
+<!-- HTML -->
 <button onclick="loginWithGoogle()">Sign in with Google</button>
-<button onclick="logout()">Sign Out</button>
 
-<div id="user-info"></div
 <h3>Create Account</h3>
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="password" placeholder="Password">
+
+<select id="role">
+  <option value="">Choose account type</option>
+  <option value="worker">Job Seeker</option>
+  <option value="company">Company</option>
+</select>
+
 <button onclick="register()">Register</button>
 
 <h3>Login</h3>
 <button onclick="login()">Login</button>
+
+<div id="user-info"></div>
 </body>
     </html>
