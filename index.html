@@ -2074,5 +2074,124 @@ window.login = async () => {
 
 <h3>Login</h3>
 <button onclick="login()">Login</button>
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  import {
+    getFirestore,
+    doc,
+    setDoc,
+    getDoc
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
+    authDomain: "flexhire-71294.firebaseapp.com",
+    projectId: "flexhire-71294",
+    appId: "1:507262046702:web:fc19cca1221901c910feff"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const provider = new GoogleAuthProvider();
+
+  // Google Login
+  window.loginWithGoogle = async () => {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const snap = await getDoc(doc(db, "users", user.uid));
+    if (snap.exists()) {
+      redirectUser(snap.data().role);
+    } else {
+      alert("Please register first");
+    }
+  };
+
+  // Register (Email + Role)
+  window.register = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const role = document.getElementById("role").value;
+
+    if (!role) {
+      alert("Choose account type");
+      return;
+    }
+
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const user = cred.user;
+
+    await setDoc(doc(db, "users", user.uid), {
+      email: user.email,
+      role: role,
+      createdAt: new Date()
+    });
+
+    redirectUser(role);
+  };
+
+  // Login (Email)
+  window.login = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const cred = await signInWithEmailAndPassword(auth, email, password);
+    const user = cred.user;
+
+    const snap = await getDoc(doc(db, "users", user.uid));
+    if (snap.exists()) {
+      redirectUser(snap.data().role);
+    }
+  };
+
+  // Logout
+  window.logout = async () => {
+    await signOut(auth);
+    window.location.href = "index.html";
+  };
+
+  // Redirect
+  function redirectUser(role) {
+    window.location.href = role === "company" ? "company.html" : "worker.html";
+  }
+
+  // Protect pages
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) return;
+    const snap = await getDoc(doc(db, "users", user.uid));
+    if (snap.exists()) redirectUser(snap.data().role);
+  });
+</script>
+
+<!-- HTML -->
+<button onclick="loginWithGoogle()">Sign in with Google</button>
+
+<h3>Create Account</h3>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+
+<select id="role">
+  <option value="">Choose account type</option>
+  <option value="worker">Job Seeker</option>
+  <option value="company">Company</option>
+</select>
+
+<button onclick="register()">Register</button>
+
+<h3>Login</h3>
+<button onclick="login()">Login</button>
+
+<div id="user-info"></div>
 </body>
 </html>
