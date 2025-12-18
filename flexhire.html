@@ -700,5 +700,56 @@
       initAuthState();
     });
   </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
+    authDomain: "flexhire-71294.firebaseapp.com",
+    projectId: "flexhire-71294",
+    appId: "1:507262046702:web:fc19cca1221901c910feff"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  window.register = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Account created");
+  };
+
+  window.login = async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    await signInWithEmailAndPassword(auth, email, password);
+    alert("Logged in");
+  };
+
+  window.logout = async () => {
+    await signOut(auth);
+  };
+
+  onAuthStateChanged(auth, (user) => {
+    const logoutBtn = document.getElementById("logout-btn");
+    const userInfo = document.getElementById("user-info");
+
+    if (user) {
+      logoutBtn.style.display = "inline-block";
+      userInfo.innerText = "Welcome " + user.email;
+    } else {
+      logoutBtn.style.display = "none";
+      userInfo.innerText = "";
+    }
+  });
+</script>
 </body>
 </html>
