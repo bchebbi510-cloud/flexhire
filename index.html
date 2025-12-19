@@ -1,57 +1,14 @@
-<!-- Firebase Auth -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import {
-    getAuth,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged
-  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FlexHire</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family:Arial;text-align:center;padding:40px">
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAgxegi7oHZc8zzsMyZx6Atao4YhkEsNiU",
-    authDomain: "flexhire-71294.firebaseapp.com",
-    projectId: "flexhire-71294",
-    appId: "1:507262046702:web:fc19cca1221901c910feff"
-  };
+  <h1>FlexHire</h1>
+  <p>Website is back online ✔️</p>
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const provider = new GoogleAuthProvider();
-
-  window.loginWithGoogle = async () => {
-    await signInWithPopup(auth, provider);
-  };
-
-  window.register = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    await createUserWithEmailAndPassword(auth, email, password);
-  };
-
-  window.login = async () => {
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    await signInWithEmailAndPassword(auth, email, password);
-  };
-
-  window.logout = async () => {
-    await signOut(auth);
-  };
-
-  onAuthStateChanged(auth, (user) => {
-    const logoutBtn = document.getElementById("logout-btn");
-    const userInfo = document.getElementById("user-info");
-
-    if (user) {
-      userInfo.innerText = "Welcome " + user.email;
-      logoutBtn.style.display = "inline-block";
-    } else {
-      userInfo.innerText = "";
-      logoutBtn.style.display = "none";
-    }
-  });
-</script>
+</body>
+</html>
